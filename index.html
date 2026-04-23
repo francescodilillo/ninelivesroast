@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nine Lives Roast — Specialty Coffee · Amsterdam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Mono:wght@400;700&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:        #0f0d0b;
+      --ink-mid:    #2a2520;
+      --paper:      #f7f3ec;
+      --paper-warm: #ede7dc;
+      --panel-bg:   #faf7f2;
+      --rule-lt:    rgba(15,13,11,.12);
+      --muted:      rgba(15,13,11,.4);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Space Mono", monospace;
+      overflow-x: hidden;
+    }
+
+    /* grain overlay */
+    body::after {
+      content: "";
+      position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .5; mix-blend-mode: multiply;
+    }
+
+    /* ══════════════════════════════════
+       NAV
+    ══════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--paper);
+      border-bottom: 2px solid var(--ink);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4.5rem;
+      height: 4.5rem;
+    }
+    .nav-brand {
+      font-family: "Playfair Display", serif;
+      font-size: 1.1rem; font-weight: 700;
+      letter-spacing: .06em; color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex; gap: 2.5rem; align-items: center;
+    }
+    .nav-link {
+      font-size: .75rem; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--ink-mid);
+      font-weight: 700;
+      text-decoration: none;
+      transition: color .2s;
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .nav-link:hover { color: var(--ink); }
+    .nav-link.active { color: var(--ink); }
+    .nav-link svg { width: 13px; height: 13px; fill: currentColor; }
+
+    /* ══════════════════════════════════
+       HERO
+    ══════════════════════════════════ */
+    .hero {
+      margin-top: 4rem;
+      position: relative;
+      min-height: calc(100vh - 4rem);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .hero-left {
+      position: relative;
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 3rem 5rem 6rem;
+      z-index: 2;
+      border-right: 2px solid var(--ink);
+    }
+
+    .jp-strip {
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 2.75rem;
+      background: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-rl;
+      font-family: "Noto Serif JP", serif;
+      font-size: .68rem;
+      letter-spacing: .28em;
+      color: var(--paper);
+      z-index: 3;
+    }
+
+    .brand-tag {
+      font-size: .75rem; letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: 1.5rem;
+    }
+    .brand-tag::before {
+      content: "";
+      display: inline-block;
+      width: 2rem; height: 1px;
+      background: var(--ink);
+    }
+
+    .hero-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 900;
+      line-height: .88;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      margin-bottom: .75rem;
+    }
+
+    .hero-subtitle {
+      font-family: "Noto Serif JP", serif;
+      font-size: .9rem;
+      font-weight: 300;
+      color: var(--ink);
+      letter-spacing: .18em;
+      margin-bottom: 3rem;
+    }
+
+    .hero-intro {
+      font-size: .76rem;
+      line-height: 2.1;
+      color: rgba(15,13,11,.82);
+      max-width: 46ch;
+      margin-bottom: 3rem;
+      border-top: 1px solid var(--rule-lt);
+      padding-top: 2rem;
+    }
+
+    .hero-cta-row {
+      display: flex; gap: 1rem; align-items: center;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--ink); color: var(--paper);
+      font-family: "Space Mono", monospace;
+      font-size: .55rem; letter-spacing: .28em;
+      text-transform: uppercase; text-decoration: none;
+      padding: .9rem 1.75rem;
+      transition: background .2s, color .2s;
+      border: 2px solid var(--ink);
+    }
+    .btn-primary:hover { background: transparent; color: var(--ink); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: transparent; color: var(--ink);
+      font-family: "Space Mono", monospace;
+      font-size: .55rem; letter-spacing: .28em;
+      text-transform: uppercase; text-decoration: none;
+      padding: .9rem 1.75rem;
+      transition: background .2s, color .2s;
+      border: 2px solid var(--ink);
+    }
+    .btn-secondary:hover { background: var(--ink); color: var(--paper); }
+
+    /* hero right — logo display */
+    .hero-right {
+      position: relative;
+      background: var(--paper-warm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-right::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent, transparent 6px,
+        rgba(15,13,11,.02) 6px, rgba(15,13,11,.02) 7px
+      );
+      pointer-events: none;
+    }
+    .hero-logo-wrap {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 3rem;
+    }
+    .logo-pair {
+      display: flex; gap: 3px;
+      background: var(--ink);
+      border: 2px solid var(--ink);
+    }
+    .logo-cell {
+      background: var(--paper-warm);
+      display: flex; flex-direction: column;
+      align-items: center;
+      width: 280px;
+    }
+    .logo-cell-img {
+      padding: 2.5rem 2rem 1.5rem;
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; height: 300px;
+    }
+    .logo-cell img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      filter: contrast(1.1);
+    }
+    .logo-cell-footer {
+      width: 100%;
+      border-top: 1.5px solid var(--ink);
+      padding: .85rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between;
+      text-decoration: none;
+      background: var(--paper-warm);
+      transition: background .2s;
+    }
+    .logo-cell-footer:hover { background: var(--paper); }
+    .logo-cell-name {
+      font-family: "Playfair Display", serif;
+      font-size: .85rem; font-weight: 700;
+      color: var(--ink); letter-spacing: .04em;
+    }
+    .logo-cell-sub {
+      font-size: .45rem; letter-spacing: .25em;
+      text-transform: uppercase; color: var(--muted);
+      margin-top: .15rem;
+    }
+    .logo-cell-arrow {
+      font-family: "Playfair Display", serif;
+      font-size: 1.1rem; color: rgba(15,13,11,.25);
+      transition: color .2s, transform .2s;
+    }
+    .logo-cell-footer:hover .logo-cell-arrow { color: var(--ink); transform: translateX(3px); }
+    .hero-stamp {
+      font-size: .48rem; letter-spacing: .3em;
+      text-transform: uppercase; color: var(--muted);
+      text-align: center;
+    }
+
+    /* big background text */
+    .hero-bg-text {
+      position: absolute;
+      bottom: -2rem; right: -1rem;
+      font-family: "Noto Serif JP", serif;
+      font-size: 18rem; font-weight: 700;
+      color: rgba(15,13,11,.04);
+      line-height: 1; pointer-events: none;
+      white-space: nowrap;
+    }
+
+    /* ══════════════════════════════════
+       PHILOSOPHY STRIP
+    ══════════════════════════════════ */
+    .philosophy-strip {
+      background: var(--ink);
+      border-bottom: 2px solid var(--ink);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: .9rem 0;
+      position: relative;
+    }
+    .marquee-track {
+      display: inline-flex; gap: 3rem;
+      animation: marquee 22s linear infinite;
+    }
+    .marquee-item {
+      font-size: .52rem; letter-spacing: .3em;
+      text-transform: uppercase;
+      color: rgba(247,243,236,.5);
+      flex-shrink: 0;
+    }
+    .marquee-dot {
+      color: rgba(247,243,236,.2);
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ══════════════════════════════════
+       ABOUT SECTION
+    ══════════════════════════════════ */
+    .about-section {
+      background: var(--paper);
+      padding: 6rem 4.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 6rem; align-items: center;
+      border-bottom: 2px solid var(--ink);
+      position: relative; overflow: hidden;
+    }
+    .about-section::before {
+      content: "猫";
+      position: absolute; right: 2rem; top: 50%;
+      transform: translateY(-50%);
+      font-family: "Noto Serif JP", serif;
+      font-size: 22rem; font-weight: 700;
+      color: rgba(15,13,11,.035);
+      pointer-events: none; line-height: 1;
+    }
+    .section-eyebrow {
+      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-mid); font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .section-eyebrow::after {
+      content: ""; flex: 1; height: 1px;
+      background: var(--rule-lt);
+    }
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 2rem;
+      line-height: 1.1;
+    }
+    .about-text p {
+      font-size: .8rem; line-height: 2.2;
+      color: rgba(15,13,11,.82); max-width: 52ch;
+    }
+    .about-text p + p { margin-top: 1.25rem; }
+    .about-badge {
+      display: inline-flex; gap: .5rem; align-items: center;
+      border: 1.5px solid var(--ink);
+      padding: .45rem 1rem;
+      font-size: .55rem; letter-spacing: .25em;
+      text-transform: uppercase; color: var(--ink); margin-top: 2rem;
+    }
+
+    /* stats panel */
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      background: var(--ink);
+      border: 2px solid var(--ink);
+    }
+    .stat-cell {
+      background: var(--panel-bg);
+      padding: 2.5rem 2rem;
+      transition: background .2s;
+    }
+    .stat-cell:hover { background: var(--paper-warm); }
+    .stat-num {
+      font-family: "Playfair Display", serif;
+      font-size: 3.2rem; font-weight: 900;
+      color: var(--ink); line-height: 1; margin-bottom: .5rem;
+    }
+    .stat-num span { font-size: 1.4rem; }
+    .stat-label {
+      font-size: .52rem; letter-spacing: .25em;
+      text-transform: uppercase; color: var(--ink-mid); line-height: 1.6; font-size: .6rem;
+    }
+
+    /* ══════════════════════════════════
+       PRODUCTS SECTION
+    ══════════════════════════════════ */
+    .products-section {
+      background: var(--paper-warm);
+      padding: 6rem 4.5rem;
+      border-bottom: 2px solid var(--ink);
+      position: relative; overflow: hidden;
+    }
+    .products-section::before {
+      content: "珈琲";
+      position: absolute; right: 1rem; bottom: -3rem;
+      font-family: "Noto Serif JP", serif;
+      font-size: 20rem; font-weight: 700;
+      color: rgba(15,13,11,.04);
+      pointer-events: none; line-height: 1;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      background: var(--ink);
+      border: 2px solid var(--ink);
+      margin-top: 3rem;
+    }
+    .product-card {
+      background: var(--paper);
+      transition: background .2s;
+      text-decoration: none; color: inherit;
+      display: block;
+      position: relative; overflow: hidden;
+    }
+    .product-card:hover { background: var(--panel-bg); }
+    .product-card-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+    }
+    .product-bag {
+      border-right: 1.5px solid var(--ink);
+      overflow: hidden;
+    }
+    .product-bag img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: saturate(0.7) sepia(0.3) contrast(1.1) brightness(1.0);
+      display: block;
+      transition: transform 6s ease;
+    }
+    .product-card:hover .product-bag img { transform: scale(1.04); }
+    .product-info {
+      padding: 3rem 2.5rem 3rem 3rem;
+      position: relative;
+    }
+    .product-info::after {
+      content: "View details →";
+      position: absolute; bottom: 2.5rem; right: 2rem;
+      font-family: "Space Mono", monospace;
+      font-size: .6rem; letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(15,13,11,.5);
+      border-bottom: 1.5px solid rgba(15,13,11,.2);
+      padding-bottom: 2px;
+      transition: color .2s, transform .2s, border-color .2s;
+    }
+    .product-card:hover .product-info::after { color: var(--ink); transform: translateX(4px); border-color: var(--ink); }
+    .product-label {
+      font-size: .7rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--ink-mid); margin-bottom: .75rem; font-weight: 700;
+    }
+    .product-name {
+      font-family: "Playfair Display", serif;
+      font-size: 2.2rem; font-weight: 900;
+      color: var(--ink); line-height: 1; margin-bottom: .5rem;
+    }
+    .product-sub {
+      font-family: "Noto Serif JP", serif;
+      font-size: .82rem; font-weight: 300;
+      color: var(--ink-mid); letter-spacing: .15em; margin-bottom: 1.5rem;
+    }
+    .product-divider {
+      width: 2rem; height: 2px;
+      background: var(--ink); margin-bottom: 1.5rem;
+    }
+    .product-desc {
+      font-size: .74rem; line-height: 2.0;
+      color: rgba(15,13,11,.82); max-width: 40ch; margin-bottom: 2rem;
+    }
+    .product-meta-row {
+      display: flex; gap: 1.5rem; align-items: center;
+    }
+    .product-price {
+      font-family: "Playfair Display", serif;
+      font-size: 1.6rem; font-weight: 700; color: var(--ink);
+    }
+    .product-tag {
+      font-size: .48rem; letter-spacing: .25em;
+      text-transform: uppercase; color: var(--muted);
+      border: 1px solid rgba(15,13,11,.2);
+      padding: .3rem .75rem;
+    }
+    .roast-pip {
+      display: inline-flex; gap: 4px; align-items: center; margin-top: .75rem;
+    }
+    .pip {
+      width: 8px; height: 8px; border-radius: 50%;
+      border: 1.5px solid var(--ink);
+    }
+    .pip.filled { background: var(--ink); }
+    .roast-label {
+      font-size: .48rem; letter-spacing: .25em;
+      text-transform: uppercase; color: var(--muted);
+      margin-left: .5rem;
+    }
+
+    /* ══════════════════════════════════
+       VALUES STRIP (dark)
+    ══════════════════════════════════ */
+    .values-section {
+      background: var(--ink);
+      padding: 5rem 4.5rem;
+      border-bottom: 2px solid var(--ink);
+      position: relative; overflow: hidden;
+    }
+    .values-section::before {
+      content: "誠";
+      position: absolute; right: 1.5rem; bottom: -5rem;
+      font-family: "Noto Serif JP", serif;
+      font-size: 22rem; font-weight: 700;
+      color: rgba(247,243,236,.04); pointer-events: none;
+    }
+    .values-section .section-eyebrow { color: rgba(247,243,236,.8); }
+    .values-section .section-eyebrow::after { background: rgba(247,243,236,.12); }
+    .values-section .section-title { color: var(--paper); margin-bottom: 3.5rem; }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      background: rgba(247,243,236,.08);
+      border: 1px solid rgba(247,243,236,.1);
+    }
+    .value-cell {
+      background: var(--ink);
+      padding: 2.5rem 2rem;
+      border-right: 1px solid rgba(247,243,236,.08);
+      transition: background .2s;
+    }
+    .value-cell:last-child { border-right: none; }
+    .value-cell:hover { background: rgba(247,243,236,.04); }
+    .value-icon {
+      font-size: 1.4rem; margin-bottom: 1.2rem; display: block;
+    }
+    .value-name {
+      font-family: "Playfair Display", serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--paper); margin-bottom: .75rem;
+    }
+    .value-desc {
+      font-size: .8rem; line-height: 2.0;
+      color: rgba(247,243,236,.85);
+    }
+
+    /* ══════════════════════════════════
+       METHODS SECTION
+    ══════════════════════════════════ */
+    .methods-section {
+      background: var(--paper);
+      padding: 5rem 4.5rem;
+      border-bottom: 2px solid var(--ink);
+    }
+    .methods-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1.5px solid var(--ink);
+      margin-top: 3rem;
+    }
+    .method-card {
+      padding: 2.5rem 2rem;
+      border-right: 1.5px solid var(--ink);
+      transition: background .2s;
+    }
+    .method-card:last-child { border-right: none; }
+    .method-card:hover { background: var(--paper-warm); }
+    .method-icon { font-size: 1.5rem; margin-bottom: 1.2rem; display: block; }
+    .method-name {
+      font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-mid); margin-bottom: .5rem; font-weight: 700;
+    }
+    .method-desc {
+      font-family: "Playfair Display", serif;
+      font-style: italic; font-size: .95rem;
+      color: var(--ink); line-height: 1.5;
+    }
+
+    /* ══════════════════════════════════
+       CONTACT SECTION
+    ══════════════════════════════════ */
+    .contact-section {
+      background: var(--paper-warm);
+      padding: 6rem 4.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: start;
+      border-bottom: 2px solid var(--ink);
+      position: relative; overflow: hidden;
+    }
+    .contact-section::before {
+      content: "連絡";
+      position: absolute; right: 1rem; bottom: -2rem;
+      font-family: "Noto Serif JP", serif;
+      font-size: 18rem; font-weight: 700;
+      color: rgba(15,13,11,.04); pointer-events: none;
+    }
+    .contact-text p {
+      font-size: .8rem; line-height: 2.2;
+      color: rgba(15,13,11,.82);
+    }
+    .contact-links {
+      display: flex; flex-direction: column; gap: 3px;
+      background: var(--ink);
+      border: 2px solid var(--ink);
+    }
+    .contact-link-row {
+      background: var(--paper);
+      padding: 1.75rem 2rem;
+      display: flex; align-items: center; gap: 1.5rem;
+      text-decoration: none; color: inherit;
+      transition: background .2s;
+    }
+    .contact-link-row:hover { background: var(--panel-bg); }
+    .contact-link-icon {
+      width: 2.5rem; height: 2.5rem;
+      display: flex; align-items: center; justify-content: center;
+      border: 1.5px solid var(--rule-lt);
+      flex-shrink: 0;
+    }
+    .contact-link-icon svg { width: 14px; height: 14px; fill: var(--ink); }
+    .contact-link-label {
+      font-size: .65rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--ink-mid); margin-bottom: .25rem; font-weight: 700;
+    }
+    .contact-link-val {
+      font-size: .72rem; color: var(--ink); letter-spacing: .04em;
+    }
+    .contact-link-arrow {
+      margin-left: auto;
+      font-family: "Playfair Display", serif;
+      font-size: 1.2rem; color: rgba(15,13,11,.2);
+      transition: color .2s, transform .2s;
+    }
+    .contact-link-row:hover .contact-link-arrow { color: var(--ink); transform: translateX(4px); }
+
+    /* ══════════════════════════════════
+       FOOTER
+    ══════════════════════════════════ */
+    footer {
+      background: var(--ink);
+      padding: 3rem 4.5rem;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(247,243,236,.1);
+      margin-bottom: 2rem;
+    }
+    .footer-brand {
+      font-family: "Playfair Display", serif;
+      font-size: 1.05rem;
+      letter-spacing: .08em;
+      color: var(--paper);
+    }
+    .footer-sub {
+      font-size: .5rem; letter-spacing: .3em;
+      text-transform: uppercase;
+      color: rgba(247,243,236,.75); margin-top: .35rem;
+    }
+    .footer-links {
+      display: flex; gap: 2rem; align-items: center;
+    }
+    .footer-link {
+      font-size: .72rem; letter-spacing: .08em;
+      color: rgba(247,243,236,.85);
+      text-decoration: none;
+      display: flex; align-items: center; gap: .4rem;
+      transition: color .2s;
+      text-transform: uppercase;
+    }
+    .footer-link:hover { color: var(--paper); }
+    .footer-link svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-legal {
+      font-size: .5rem; letter-spacing: .08em;
+      color: rgba(247,243,236,.7); line-height: 1.9; font-size: .62rem;
+    }
+    .co2-badge {
+      font-size: .5rem; letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(247,243,236,.8);
+      border: 1px solid rgba(247,243,236,.4);
+      padding: .3rem .75rem;
+    }
+
+    /* ══════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════ */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-right { height: 70vw; }
+      .hero-left { padding: 3rem 2rem 3rem 4.5rem; border-right: none; border-bottom: 2px solid var(--ink); }
+      .logo-pair { flex-direction: column; }
+      .logo-cell { width: 100%; height: 200px; }
+      .about-section { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 2rem; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .products-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+      .values-section { padding: 4rem 2rem; }
+      .value-cell { border-right: none; border-bottom: 1px solid rgba(247,243,236,.08); }
+      .methods-section { padding: 4rem 2rem; }
+      .methods-grid { grid-template-columns: 1fr; }
+      .method-card { border-right: none; border-bottom: 1.5px solid var(--ink); }
+      .method-card:last-child { border-bottom: none; }
+      .contact-section { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 2rem; }
+      .products-section { padding: 4rem 2rem; }
+      .footer-top { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    /* ══════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-left > * { animation: fadeUp .7s ease both; }
+    .hero-left > *:nth-child(1) { animation-delay: .05s; }
+    .hero-left > *:nth-child(2) { animation-delay: .15s; }
+    .hero-left > *:nth-child(3) { animation-delay: .25s; }
+    .hero-left > *:nth-child(4) { animation-delay: .38s; }
+    .hero-left > *:nth-child(5) { animation-delay: .5s; }
+    .hero-left > *:nth-child(6) { animation-delay: .62s; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═════════════════════════════════════════════ -->
+<nav>
+  <a href="index.html" class="nav-brand">Nine Lives Roast</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link active">Home</a>
+    <a href="nlr-peru-passport.html" class="nav-link">Peru Single Origin</a>
+    <a href="nlr-polar-blend.html" class="nav-link">Polar Blend</a>
+    <a href="#contact" class="nav-link">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      Contact
+    </a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="jp-strip">ナインライブスロースト · アムステルダム · スペシャルティコーヒー</div>
+
+  <div class="hero-left">
+    <div class="brand-tag">Nine Lives Roast &nbsp;·&nbsp; Amsterdam</div>
+    <h1 class="hero-title">NINE<br>LIVES<br>ROAST</h1>
+    <p class="hero-subtitle">Specialty Coffee &nbsp;·&nbsp; スペシャルティ</p>
+
+    <p class="hero-intro">
+      Manga-inspired specialty coffee, sourced ethically from Peru, Colombia & Brazil,
+      roasted CO₂-neutral in Amsterdam. Small batch, big flavour.
+    </p>
+
+    <div class="hero-cta-row">
+      <a href="#products" class="btn-primary">Explore the coffees</a>
+      <a href="#about" class="btn-secondary">Our story</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-bg-text">NLR</div>
+    <div class="hero-logo-wrap">
+      <div class="logo-pair">
+        <div class="logo-cell">
+          <div class="logo-cell-img">
+            <img src="label_lightroast.png" alt="Nine Lives Roast — Polar Blend label" />
+          </div>
+          <a href="#products" class="logo-cell-footer">
+            <div>
+              <div class="logo-cell-name">Polar Blend</div>
+              <div class="logo-cell-sub">Light Roast · BR · PE · CO</div>
+            </div>
+            <span class="logo-cell-arrow">→</span>
+          </a>
+        </div>
+        <div class="logo-cell">
+          <div class="logo-cell-img">
+            <img src="label_peru.png" alt="Nine Lives Roast — Peru label" />
+          </div>
+          <a href="#products" class="logo-cell-footer">
+            <div>
+              <div class="logo-cell-name">Peru</div>
+              <div class="logo-cell-sub">Medium Roast · Single Origin</div>
+            </div>
+            <span class="logo-cell-arrow">→</span>
+          </a>
+        </div>
+      </div>
+      <div class="hero-stamp">Amsterdam, NL · Est. 2025</div>
+      <a href="#contact" class="btn-primary" style="font-size:.55rem; letter-spacing:.28em; padding:.9rem 2.5rem; margin-top:.5rem;">Order now</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MARQUEE ══════════════════════════════════════════ -->
+<div class="philosophy-strip">
+  <div class="marquee-track">
+    <!-- repeated for seamless loop -->
+    <span class="marquee-item">Specialty Coffee</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">CO₂-Neutral Roasting</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">Peru · Colombia · Brazil</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">Manga-Inspired</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">Fair Trade</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">Amsterdam</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">Organic</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">Small Batch</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">スペシャルティコーヒー</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">Specialty Coffee</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">CO₂-Neutral Roasting</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">Peru · Colombia · Brazil</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">Manga-Inspired</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">Fair Trade</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">Amsterdam</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">Organic</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">Small Batch</span>
+    <span class="marquee-dot">·</span>
+    <span class="marquee-item">スペシャルティコーヒー</span>
+    <span class="marquee-dot">·</span>
+  </div>
+</div>
+
+<!-- ═══ ABOUT ════════════════════════════════════════════ -->
+<section class="about-section" id="about">
+  <div class="about-text">
+    <div class="section-eyebrow">Our Story</div>
+    <h2 class="section-title">Born from a love of coffee &amp; cats</h2>
+    <p>Nine Lives Roast was founded in late 2025. A passion project started with specialty coffee and a deep love for cats (especially mine), which is why they're all over the logo.</p>
+    <p>We partner with a local Amsterdam roaster to source beans ethically from Peru, Colombia, and Brazil, and roast them through CO₂-neutral processes. The result is delicious, sustainable coffee that doesn't ask you to compromise on either.</p>
+    <p>Running as a solo eenmanszaak keeps things small and personal: every bag that reaches you has been thought about, not just processed.</p>
+    <p style="font-size:.72rem; line-height:2.0; color:rgba(15,13,11,.5);">All illustrations by <a href="https://www.instagram.com/lucare.ink/" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:underline; text-underline-offset:3px;">@lucare.ink</a>.</p>
+    <div class="about-badge">🌿 Organic &nbsp;·&nbsp; ☯ Fair Trade &nbsp;·&nbsp; 🌍 CO₂-Neutral</div>
+  </div>
+
+  <div class="about-stats">
+    <div class="stat-cell">
+      <div class="stat-num">3<span></span></div>
+      <div class="stat-label">Origins<br>Peru, Colombia &amp; Brazil</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">2<span></span></div>
+      <div class="stat-label">Coffees<br>Single origin &amp; blend</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">250<span>g</span></div>
+      <div class="stat-label">Bag size<br>Whole beans</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">€10<span></span></div>
+      <div class="stat-label">Per bag<br>Both blends</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRODUCTS ══════════════════════════════════════════ -->
+<section class="products-section" id="products">
+  <div class="section-eyebrow">Our Coffees</div>
+  <h2 class="section-title">Two blends, one roaster, no compromises</h2>
+  <p style="font-size:.78rem; line-height:2.0; color:rgba(15,13,11,.6); max-width:58ch;">Both available in 250g bags of whole beans. Both versatile enough for espresso, filter or moka. Both €10. To order, <a href="mailto:info@ninelivesroast.nl" style="color:var(--ink); text-decoration:underline; text-underline-offset:3px;">send us an email</a> or <a href="https://www.instagram.com/ninelivesroast" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:underline; text-underline-offset:3px;">DM on Instagram</a>.</p>
+
+  <div style="font-size:.48rem; letter-spacing:.28em; text-transform:uppercase; color:var(--muted); margin-top:1.25rem;">
+    → Click on a coffee to see the full origin story, tasting notes &amp; price breakdown
+  </div>
+
+  <div class="products-grid">
+
+    <a href="nlr-peru-passport-v6.html" class="product-card">
+      <div class="product-card-inner">
+        <div class="product-bag">
+          <img src="peru_bag.jpeg" alt="Peru Single Origin bag" />
+        </div>
+        <div class="product-info">
+          <div class="product-label">Single Origin · Peru</div>
+          <div class="product-name">PERU</div>
+          <div class="product-sub">Churupampa &nbsp;·&nbsp; チュルパンパ</div>
+          <div class="product-divider"></div>
+          <div class="product-desc">
+            A medium roast from Finca Churupampa in Cajamarca. Full-bodied, intense and richly layered: you will taste
+            dark chocolate, cacao powder and a hint of dried berries. Washed and double fermented
+            for a clean, structured profile.
+          </div>
+          <div class="product-meta-row">
+            <div class="product-price">€10</div>
+            <div class="product-tag">250g · Whole Bean</div>
+          </div>
+          <div class="roast-pip">
+            <span class="pip filled"></span>
+            <span class="pip filled"></span>
+            <span class="pip filled"></span>
+            <span class="pip"></span>
+            <span class="pip"></span>
+            <span class="roast-label">Medium Roast</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a href="nlr-polar-blend-v6.html" class="product-card">
+      <div class="product-card-inner">
+        <div class="product-bag">
+          <img src="polar_bag.jpeg" alt="Polar Blend bag" />
+        </div>
+        <div class="product-info">
+          <div class="product-label">Blend · Brazil · Peru · Colombia</div>
+          <div class="product-name">POLAR</div>
+          <div class="product-sub">Three Origins &nbsp;·&nbsp; ポーラー</div>
+          <div class="product-divider"></div>
+          <div class="product-desc">
+            A light roast that brings together Capricornio (Brazil), Churupampa (Peru) and Argote (Colombia).
+            Bright and balanced with chocolate, dried berries and a caramel sweetness that lingers.
+            All three origins roasted separately and assembled into one.
+          </div>
+          <div class="product-meta-row">
+            <div class="product-price">€10</div>
+            <div class="product-tag">250g · Whole Bean</div>
+          </div>
+          <div class="roast-pip">
+            <span class="pip filled"></span>
+            <span class="pip filled"></span>
+            <span class="pip"></span>
+            <span class="pip"></span>
+            <span class="pip"></span>
+            <span class="roast-label">Light Roast</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ═══ VALUES ════════════════════════════════════════════ -->
+<section class="values-section">
+  <div class="section-eyebrow">What we stand for</div>
+  <h2 class="section-title">Good coffee doesn't cost the earth</h2>
+  <div class="values-grid">
+    <div class="value-cell">
+      <span class="value-icon">🌍</span>
+      <div class="value-name">CO₂-Neutral</div>
+      <div class="value-desc">We roast through CO₂-neutral processes and work with partners who take the same approach seriously. It's part of how we do things, not a badge we wear.</div>
+    </div>
+    <div class="value-cell">
+      <span class="value-icon">🤝</span>
+      <div class="value-name">Transparent Sourcing</div>
+      <div class="value-desc">We publish exactly where your money goes and farmers get the majority. Our importer, This Side Up Coffees, and our roaster, Specialty Roast, work directly with producers to keep the chain short and honest.</div>
+    </div>
+    <div class="value-cell">
+      <span class="value-icon">🐱</span>
+      <div class="value-name">Made with Care</div>
+      <div class="value-desc">This is a one-person operation. Every decision, from bean selection to the logo, is personal. That's not a limitation, it's the whole point.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BREWING METHODS ═══════════════════════════════════ -->
+<section class="methods-section">
+  <div class="section-eyebrow">Brewing</div>
+  <h2 class="section-title">Works with whatever you brew on</h2>
+  <div class="methods-grid">
+    <div class="method-card">
+      <span class="method-icon">☕</span>
+      <div class="method-name">Espresso</div>
+      <div class="method-desc">Concentrated, intense, pulls beautifully on both blends</div>
+    </div>
+    <div class="method-card">
+      <span class="method-icon">🫖</span>
+      <div class="method-name">Filter / Pour-over</div>
+      <div class="method-desc">Lets the nuances shine, especially the Polar Blend's fruit notes</div>
+    </div>
+    <div class="method-card">
+      <span class="method-icon">🫕</span>
+      <div class="method-name">Moka Pot</div>
+      <div class="method-desc">Rich and full, the Peru single origin is made for this</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══════════════════════════════════════════ -->
+<section class="contact-section" id="contact">
+  <div class="contact-text">
+    <div class="section-eyebrow">Get in touch</div>
+    <h2 class="section-title">Say hello</h2>
+    <p>To place an order, just send an email or a DM on Instagram and we'll sort it from there. Same goes for questions about the coffee or anything else. For wholesale or business enquiries, use the dedicated business email.</p>
+  </div>
+
+  <div class="contact-links">
+
+    <a href="mailto:info@ninelivesroast.nl" class="contact-link-row">
+      <div class="contact-link-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <div>
+        <div class="contact-link-label">General</div>
+        <div class="contact-link-val">info@ninelivesroast.nl</div>
+      </div>
+      <span class="contact-link-arrow">→</span>
+    </a>
+
+    <a href="mailto:business@ninelivesroast.nl" class="contact-link-row">
+      <div class="contact-link-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 6H16V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+      </div>
+      <div>
+        <div class="contact-link-label">Business &amp; Wholesale</div>
+        <div class="contact-link-val">business@ninelivesroast.nl</div>
+      </div>
+      <span class="contact-link-arrow">→</span>
+    </a>
+
+    <a href="https://www.instagram.com/ninelivesroast" target="_blank" rel="noopener" class="contact-link-row">
+      <div class="contact-link-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </div>
+      <div>
+        <div class="contact-link-label">Instagram</div>
+        <div class="contact-link-val">@ninelivesroast</div>
+      </div>
+      <span class="contact-link-arrow">→</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Nine Lives Roast</div>
+      <div class="footer-sub">Manga-inspired · Amsterdam · CO₂-neutral</div>
+    </div>
+    <div class="footer-links">
+      <a href="nlr-peru-passport-v6.html" class="footer-link">Peru Single Origin</a>
+      <a href="nlr-polar-blend-v6.html" class="footer-link">Polar Blend</a>
+      <a href="mailto:info@ninelivesroast.nl" class="footer-link">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        info@ninelivesroast.nl
+      </a>
+      <a href="https://www.instagram.com/ninelivesroast" target="_blank" rel="noopener" class="footer-link">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        @ninelivesroast
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-legal">
+      © 2026 Nine Lives Roast, All rights reserved. &nbsp;·&nbsp; VAT: NL005324557B67
+    </div>
+    <div class="co2-badge">CO₂-neutral roastery</div>
+  </div>
+</footer>
+
+</body>
+</html>

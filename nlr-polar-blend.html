@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nine Lives Roast — Polar Blend</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Mono:wght@400;700&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:        #0f0d0b;
+      --ink-mid:    #2a2520;
+      --paper:      #f7f3ec;
+      --paper-warm: #ede7dc;
+      --panel-bg:   #faf7f2;
+      --rule-lt:    rgba(15,13,11,.12);
+      --muted:      rgba(15,13,11,.4);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Space Mono", monospace;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: "";
+      position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .5; mix-blend-mode: multiply;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--paper);
+      border-bottom: 2px solid var(--ink);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4.5rem;
+      height: 4.5rem;
+    }
+    .nav-brand {
+      font-family: "Playfair Display", serif;
+      font-size: 1.1rem; font-weight: 700;
+      letter-spacing: .06em; color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex; gap: 2.5rem; align-items: center;
+    }
+    .nav-link {
+      font-size: .75rem; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--ink-mid);
+      font-weight: 700;
+      text-decoration: none;
+      transition: color .2s;
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .nav-link:hover { color: var(--ink); }
+    .nav-link.active { color: var(--ink); }
+    .nav-link svg { width: 13px; height: 13px; fill: currentColor; }
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { gap: 1rem; }
+    }
+
+    .hero {
+      margin-top: 4rem;
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .hero-left {
+      position: relative;
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 4rem 3rem 4rem 5rem;
+      z-index: 2;
+      border-right: 2px solid var(--ink);
+    }
+
+    .jp-strip {
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 2.75rem;
+      background: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-rl;
+      font-family: "Noto Serif JP", serif;
+      font-size: .68rem;
+      letter-spacing: .28em;
+      color: var(--paper);
+      z-index: 3;
+    }
+
+    .brand-tag {
+      font-size: .75rem; letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: 1.5rem;
+    }
+    .brand-tag::before {
+      content: "";
+      display: inline-block;
+      width: 2rem; height: 1px;
+      background: var(--ink);
+    }
+
+    .hero-country {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(4rem, 8vw, 7rem);
+      font-weight: 900;
+      line-height: .9;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      margin-bottom: .5rem;
+    }
+
+    .hero-subtitle {
+      font-family: "Noto Serif JP", serif;
+      font-size: .95rem;
+      font-weight: 300;
+      color: var(--ink);
+      letter-spacing: .18em;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem 1.5rem;
+      border-top: 1px solid var(--rule-lt);
+      padding-top: 2rem;
+    }
+    .meta-label {
+      font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: var(--ink-mid); font-weight: 700;
+      margin-bottom: .2rem;
+    }
+    .meta-value {
+      font-size: .88rem;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      background: var(--paper-warm);
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      background: var(--ink);
+      width: 100%;
+      height: 100%;
+    }
+    .hero-photo-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.2) brightness(.85);
+      display: block;
+      transition: transform 8s ease;
+    }
+    .hero-photo-grid img:hover { transform: scale(1.04); }
+    .hero-right::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent, transparent 6px,
+        rgba(15,13,11,.025) 6px, rgba(15,13,11,.025) 7px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .section-eyebrow {
+      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-mid); font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .section-eyebrow::after {
+      content: ""; flex: 1; height: 1px;
+      background: var(--rule-lt);
+    }
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 3rem;
+      line-height: 1.1;
+    }
+
+    .tasting-section {
+      background: var(--paper);
+      padding: 5rem 4.5rem;
+      border-bottom: 2px solid var(--ink);
+      position: relative; overflow: hidden;
+    }
+    .tasting-section::before {
+      content: "珈琲";
+      position: absolute; right: 2rem; top: 50%;
+      transform: translateY(-50%);
+      font-family: "Noto Serif JP", serif;
+      font-size: 20rem; font-weight: 700;
+      color: rgba(15,13,11,.04);
+      pointer-events: none; line-height: 1;
+    }
+    .tasting-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1.5px solid var(--ink);
+    }
+    .tasting-card {
+      padding: 2rem 1.5rem;
+      border-right: 1.5px solid var(--ink);
+      transition: background .2s;
+    }
+    .tasting-card:last-child { border-right: none; }
+    .tasting-card:hover { background: var(--paper-warm); }
+    .tasting-icon { font-size: 1.3rem; margin-bottom: 1rem; display: block; }
+    .tasting-attr {
+      font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-mid); margin-bottom: .5rem; font-weight: 700;
+    }
+    .tasting-desc {
+      font-family: "Playfair Display", serif;
+      font-style: italic; font-size: .95rem;
+      color: var(--ink); line-height: 1.5;
+    }
+
+    .process-section {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 2px solid var(--ink);
+    }
+    .process-block {
+      padding: 5rem 3.5rem;
+      position: relative; overflow: hidden;
+      background: var(--panel-bg);
+      border-right: 2px solid var(--ink);
+    }
+    .process-block:last-child { border-right: none; }
+    .process-block.light { background: var(--paper-warm); }
+    .process-num {
+      font-family: "Playfair Display", serif;
+      font-size: 9rem; font-weight: 900;
+      color: rgba(15,13,11,.05);
+      position: absolute; top: -1.5rem; right: 1.5rem;
+      line-height: 1; pointer-events: none;
+    }
+    .process-block p {
+      font-size: .78rem; line-height: 2.1;
+      color: rgba(15,13,11,.82); max-width: 40ch;
+    }
+
+    .breakdown-section {
+      background: var(--ink);
+      padding: 5rem 4.5rem;
+      border-bottom: 2px solid var(--ink);
+      position: relative; overflow: hidden;
+    }
+    .breakdown-section::before {
+      content: "円";
+      position: absolute; right: 2rem; bottom: -4rem;
+      font-family: "Noto Serif JP", serif;
+      font-size: 22rem; font-weight: 700;
+      color: rgba(247,243,236,.04); pointer-events: none;
+    }
+    .breakdown-section .section-eyebrow { color: rgba(247,243,236,.8); }
+    .breakdown-section .section-eyebrow::after { background: rgba(247,243,236,.12); }
+    .breakdown-section .section-title { color: var(--paper); }
+    .bars-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem;
+    }
+    .bar-pct {
+      font-family: "Playfair Display", serif;
+      font-size: 3.5rem; font-weight: 900;
+      color: var(--paper); line-height: 1; margin-bottom: .75rem;
+    }
+    .bar-pct span { font-size: 1.5rem; }
+    .bar-fill-track {
+      height: 2px; background: rgba(247,243,236,.15);
+      margin-bottom: .75rem; position: relative;
+    }
+    .bar-fill { position: absolute; top: 0; left: 0; bottom: 0; background: var(--paper); }
+    .bar-label { font-size: .78rem; line-height: 1.7; color: rgba(247,243,236,.88); }
+
+    .farm-section {
+      background: var(--paper);
+      padding: 6rem 4.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 6rem; align-items: start;
+      border-bottom: 2px solid var(--ink);
+    }
+    .farm-section p { font-size: .88rem; line-height: 2.2; color: rgba(15,13,11,.82); }
+    .farm-section p + p { margin-top: 1.5rem; }
+
+    .origin-block { margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--rule-lt); }
+    .origin-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .origin-block-title {
+      font-family: "Playfair Display", serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--ink); margin-bottom: .5rem;
+      display: flex; align-items: baseline; gap: .75rem;
+    }
+    .origin-block-loc {
+      font-size: .68rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--ink-mid);
+    }
+
+    .farm-badge {
+      display: inline-flex; gap: .5rem; align-items: center;
+      border: 1.5px solid var(--ink);
+      padding: .45rem 1rem;
+      font-size: .55rem; letter-spacing: .25em;
+      text-transform: uppercase; color: var(--ink); margin-top: 2rem;
+    }
+    .manga-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      border: 2px solid var(--ink);
+      background: var(--ink);
+    }
+    .manga-grid img {
+      width: 100%; height: 340px;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.15) brightness(.9);
+      display: block;
+    }
+
+    footer {
+      background: var(--ink);
+      padding: 3rem 4.5rem;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(247,243,236,.1);
+      margin-bottom: 2rem;
+    }
+    .footer-brand {
+      font-family: "Playfair Display", serif;
+      font-size: 1.05rem;
+      letter-spacing: .08em;
+      color: var(--paper);
+    }
+    .footer-sub {
+      font-size: .5rem; letter-spacing: .3em;
+      text-transform: uppercase;
+      color: rgba(247,243,236,.75); margin-top: .35rem;
+    }
+    .footer-links {
+      display: flex; gap: 2rem; align-items: center;
+    }
+    .footer-link {
+      font-size: .72rem; letter-spacing: .08em;
+      color: rgba(247,243,236,.85);
+      text-decoration: none;
+      display: flex; align-items: center; gap: .4rem;
+      transition: color .2s;
+      text-transform: uppercase;
+    }
+    .footer-link:hover { color: var(--paper); }
+    .footer-link svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-legal {
+      font-size: .5rem; letter-spacing: .08em;
+      color: rgba(247,243,236,.7); line-height: 1.9; font-size: .62rem;
+    }
+    .co2-badge {
+      font-size: .5rem; letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(247,243,236,.8);
+      border: 1px solid rgba(247,243,236,.4);
+      padding: .3rem .75rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-right { height: 70vw; }
+      .hero-left { padding: 3rem 2rem 3rem 4rem; border-right: none; border-bottom: 2px solid var(--ink); }
+      .tasting-grid { grid-template-columns: 1fr 1fr; }
+      .tasting-card { border-bottom: 1.5px solid var(--ink); }
+      .tasting-card:nth-child(2) { border-right: none; }
+      .process-section { grid-template-columns: 1fr; }
+      .process-block { border-right: none; border-bottom: 2px solid var(--ink); }
+      .process-block:last-child { border-bottom: none; }
+      .bars-grid { grid-template-columns: 1fr 1fr; }
+      .farm-section { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 2rem; }
+      .tasting-section, .breakdown-section { padding: 4rem 2rem; }
+      .footer-top { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-left > * { animation: fadeUp .7s ease both; }
+    .hero-left > *:nth-child(1) { animation-delay: .05s; }
+    .hero-left > *:nth-child(2) { animation-delay: .15s; }
+    .hero-left > *:nth-child(3) { animation-delay: .28s; }
+    .hero-left > *:nth-child(4) { animation-delay: .4s; }
+    .hero-left > *:nth-child(5) { animation-delay: .55s; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">Nine Lives Roast</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="nlr-peru-passport.html" class="nav-link">Peru Single Origin</a>
+    <a href="nlr-polar-blend.html" class="nav-link active">Polar Blend</a>
+    <a href="index.html#contact" class="nav-link">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      Contact
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="jp-strip">ポーラー ブレンド ブラジル ペルー コロンビア 南米</div>
+
+  <div class="hero-left">
+    <div class="brand-tag">Nine Lives Roast &nbsp;·&nbsp; Blend Series</div>
+    <h1 class="hero-country">POLAR</h1>
+    <p class="hero-subtitle">Brazil · Peru · Colombia &nbsp;·&nbsp; ポーラー</p>
+
+    <div class="hero-meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Brazil</div>
+        <div class="meta-value">Faz. Santa Mariana, Sitio Teixeira,<br>Faz. São Carlos · Marilia &amp; Garça</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Peru</div>
+        <div class="meta-value">Finca Churupampa SAC<br>Chirinos, Cajamarca</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Colombia</div>
+        <div class="meta-value">20 independent farmers<br>Génova, Colón, Nariño</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Importer</div>
+        <div class="meta-value">This Side Up Coffees</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Roaster</div>
+        <div class="meta-value">Special Roast</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Process</div>
+        <div class="meta-value">Pulped Natural · Washed &amp;<br>Double Fermented · Fully Washed</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Certifications</div>
+        <div class="meta-value">Organic &amp;<br>Fair Trade (PE)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-photo-grid">
+      <img src="https://images.squarespace-cdn.com/content/v1/52de9dece4b0a28390ec5e7b/1585841529618-V9KD5D094SL36P76O7RD/IMG_6041.JPG" alt="Brazil Capricornio farms" />
+      <img src="https://images.squarespace-cdn.com/content/v1/52de9dece4b0a28390ec5e7b/1711001270764-YW73C11HYXWT13PUV3FF/ColombiaByAukje-24.jpg" alt="Colombia Argote farm" />
+    </div>
+  </div>
+</section>
+
+<section class="tasting-section">
+  <div class="section-eyebrow">Tasting Notes</div>
+  <h2 class="section-title">What to taste for</h2>
+  <div class="tasting-grid">
+    <div class="tasting-card">
+      <span class="tasting-icon">☕</span>
+      <div class="tasting-attr">Aroma</div>
+      <div class="tasting-desc">Chocolate, dried berries, caramel &amp; nuts</div>
+    </div>
+    <div class="tasting-card">
+      <span class="tasting-icon">💧</span>
+      <div class="tasting-attr">Body</div>
+      <div class="tasting-desc">Round mouthfeel with a thick body</div>
+    </div>
+    <div class="tasting-card">
+      <span class="tasting-icon">🍇</span>
+      <div class="tasting-attr">Acidity</div>
+      <div class="tasting-desc">Hint of currants</div>
+    </div>
+    <div class="tasting-card">
+      <span class="tasting-icon">🍫</span>
+      <div class="tasting-attr">Aftertaste</div>
+      <div class="tasting-desc">Dark chocolate, cacao powder, molasses</div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section">
+  <div class="process-block">
+    <div class="process-num">01</div>
+    <div class="section-eyebrow">Brazil · Processing</div>
+    <h2 class="section-title" style="font-size:1.9rem; margin-bottom:1.5rem;">Pulped Natural</h2>
+    <p>The Brazilian coffee is a pulped natural. The combination of altitude and processing results in a jammy, red fruit profile, with lots of sweetness and a dark chocolate backbone. The excellent treatment of the Signature lots give it unrivaled consistency in quality and flavor, year after year.</p>
+  </div>
+  <div class="process-block light">
+    <div class="process-num">02</div>
+    <div class="section-eyebrow">Peru · Processing</div>
+    <h2 class="section-title" style="font-size:1.9rem; margin-bottom:1.5rem;">Washed &amp; Double Fermented</h2>
+    <p>The Peruvian coffee is washed and double fermented — using a hand pulper, coffees are pulped and fermented in tiled tanks for about 12–24 hrs depending on weather. They are then washed and fermented again for the same amount of time.</p>
+  </div>
+  <div class="process-block">
+    <div class="process-num">03</div>
+    <div class="section-eyebrow">Colombia · Processing</div>
+    <h2 class="section-title" style="font-size:1.9rem; margin-bottom:1.5rem;">Fully Washed</h2>
+    <p>The Colombian coffees are fully washed — hand-picked, de-pulped, washed with mountain water, fermented for 18–24 hours, sun-dried on concrete patios and raised drawers for about 2 weeks, manually sorted in four rounds, hulled and bagged at the Argote family farm.</p>
+  </div>
+</section>
+
+<section class="process-section" style="border-bottom: 2px solid var(--ink);">
+  <div class="process-block light" style="grid-column: span 3; display: grid; grid-template-columns: auto 1fr; gap: 4rem; align-items: center; padding: 4rem 4.5rem;">
+    <div>
+      <div class="section-eyebrow" style="margin-bottom:.5rem;">Roasting</div>
+      <h2 class="section-title" style="font-size:1.9rem; margin-bottom:.5rem;">Probat UG22 · 11 min</h2>
+      <div style="font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-mid); font-weight:700;">After first crack, 25% rest time</div>
+    </div>
+    <p style="font-size:.82rem; line-height:2.1; color:rgba(15,13,11,.82); max-width:62ch;">Roasted on a 22kg Probat UG22 built in 1965 — a machine with real character. Total roast time is 11 minutes. After first crack, the coffee rests for 25% of the remaining time. Each of the three origins is profiled separately and brought together so every component can give its best before the blend is assembled.</p>
+  </div>
+</section>
+
+<section class="breakdown-section">
+  <div class="section-eyebrow">Transparency</div>
+  <h2 class="section-title">Where your money goes</h2>
+  <div class="bars-grid">
+    <div class="bar-item">
+      <div class="bar-pct">60<span>%</span></div>
+      <div class="bar-fill-track"><div class="bar-fill" style="width:60%"></div></div>
+      <div class="bar-label">Farmers — growing, harvest, milling &amp; preparing bags for export</div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-pct">20<span>%</span></div>
+      <div class="bar-fill-track"><div class="bar-fill" style="width:20%"></div></div>
+      <div class="bar-label">Importing, financing, shipping bureaucracy, sampling &amp; logistics by This Side Up Coffees</div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-pct">11<span>%</span></div>
+      <div class="bar-fill-track"><div class="bar-fill" style="width:11%"></div></div>
+      <div class="bar-label">Export by Capricornio (BR), Churupampa (PE) &amp; Argote (CO) — all own licences</div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-pct">9<span>%</span></div>
+      <div class="bar-fill-track"><div class="bar-fill" style="width:9%"></div></div>
+      <div class="bar-label">Total shipping to Rotterdam — full container loads keep costs low</div>
+    </div>
+  </div>
+</section>
+
+<section class="farm-section">
+  <div>
+    <div class="section-eyebrow">Origin Stories</div>
+    <h2 class="section-title" style="margin-bottom:2rem;">Three Farms, One Blend</h2>
+
+    <div class="origin-block">
+      <div class="origin-block-title">
+        Brazil · Capricornio
+        <span class="origin-block-loc">Marilia &amp; Garça, São Paulo</span>
+      </div>
+      <p>Capricornio set out to revive the coffee regions of southern Brazil, once thriving, then abandoned after the frosts of the 1960s. They found 20 farmers, helped them build modern sustainable farms, and proved that the cold stress near the Tropic of Capricorn could produce coffees with the complexity of high-altitude origins. Since 2017, This Side Up has been promoting them in Europe.</p>
+    </div>
+
+    <div class="origin-block">
+      <div class="origin-block-title">
+        Peru · Churupampa
+        <span class="origin-block-loc">Chirinos, Cajamarca</span>
+      </div>
+      <p>Churupampa is not just a farm — it's a social business model which the Tocto family aims to expand to 30 neighbouring farms in their town of Chirinos. Some of the upgrades include better processing facilities, plant renovation schemes with new varieties, and plastic-covered raised beds to secure stable drying despite seasonal rainfalls. In 2018, the quality control team cupped around 4,000 samples. Not one lot goes uncupped. This coffee is also Organic and Fair Trade Certified.</p>
+    </div>
+
+    <div class="origin-block">
+      <div class="origin-block-title">
+        Colombia · Argote
+        <span class="origin-block-loc">Génova, Colón, Nariño</span>
+      </div>
+      <p>Father and son Efraín and Juan Pablo Argote were about to sell the family estate when Juan Pablo asked: what if we did something different? They started processing and roasting locally, caught This Side Up's attention in 2014, and within two years had their own export licence, raised beds, and were helping their neighbours do the same. Nariño's mountain dynamics deliver the rest: exquisite acidity, smooth texture, rich aromas.</p>
+    </div>
+
+    <div class="farm-badge">🌿 Organic &nbsp;·&nbsp; ☯ Fair Trade (PE) &nbsp;·&nbsp; 🌍 CO₂-Neutral</div>
+  </div>
+
+  <div class="manga-grid">
+    <img src="https://images.squarespace-cdn.com/content/v1/52de9dece4b0a28390ec5e7b/1585841529254-RNIOLGOQWK5SLP2PS217/IMG_6067-2.JPG" alt="Brazil Capricornio farms" />
+    <img src="https://images.squarespace-cdn.com/content/v1/52de9dece4b0a28390ec5e7b/1711001269435-TRI607HMEAQRLGKWUAL9/Argote6.jpeg" alt="Colombia Argote farm" />
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Nine Lives Roast</div>
+      <div class="footer-sub">Manga-inspired · Amsterdam · CO₂-neutral</div>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:info@ninelivesroast.nl" class="footer-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        info@ninelivesroast.nl
+      </a>
+      <a href="https://www.instagram.com/ninelivesroast?igsh=Mm9xYnh0NXYxbWMx" target="_blank" rel="noopener" class="footer-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        @ninelivesroast
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-legal">
+      © 2026 Nine Lives Roast, All rights reserved. &nbsp;·&nbsp; VAT: NL005324557B67<br>
+      Illustrations by <a href="https://www.instagram.com/lucare.ink/" target="_blank" rel="noopener" style="color:rgba(247,243,236,.55); text-decoration:underline; text-underline-offset:3px;">@lucare.ink</a>
+    </div>
+    <div class="co2-badge">CO₂-neutral roastery</div>
+  </div>
+</footer>
+
+</body>
+</html>

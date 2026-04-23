@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nine Lives Roast — Peru Churupampa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Mono:wght@400;700&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink:        #0f0d0b;
+      --ink-mid:    #2a2520;
+      --paper:      #f7f3ec;
+      --paper-warm: #ede7dc;
+      --panel-bg:   #faf7f2;
+      --rule-lt:    rgba(15,13,11,.12);
+      --muted:      rgba(15,13,11,.4);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Space Mono", monospace;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: "";
+      position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .5; mix-blend-mode: multiply;
+    }
+
+    /* ══════════════════════════════════
+       NAV
+    ══════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--paper);
+      border-bottom: 2px solid var(--ink);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 4.5rem;
+      height: 4.5rem;
+    }
+    .nav-brand {
+      font-family: "Playfair Display", serif;
+      font-size: 1.1rem; font-weight: 700;
+      letter-spacing: .06em; color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex; gap: 2.5rem; align-items: center;
+    }
+    .nav-link {
+      font-size: .75rem; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--ink-mid);
+      font-weight: 700;
+      text-decoration: none;
+      transition: color .2s;
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .nav-link:hover { color: var(--ink); }
+    .nav-link.active { color: var(--ink); }
+    .nav-link svg { width: 13px; height: 13px; fill: currentColor; }
+
+    /* ══════════════════════════════════
+       HERO
+    ══════════════════════════════════ */
+    .hero {
+      margin-top: 4rem;
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .hero-left {
+      position: relative;
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 4rem 3rem 4rem 5rem;
+      z-index: 2;
+      border-right: 2px solid var(--ink);
+    }
+
+    /* vertical JP strip */
+    .jp-strip {
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 2.75rem;
+      background: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-rl;
+      font-family: "Noto Serif JP", serif;
+      font-size: .68rem;
+      letter-spacing: .28em;
+      color: var(--paper);
+      z-index: 3;
+    }
+
+    .brand-tag {
+      font-size: .75rem; letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: 1.5rem;
+    }
+    .brand-tag::before {
+      content: "";
+      display: inline-block;
+      width: 2rem; height: 1px;
+      background: var(--ink);
+    }
+
+    .hero-country {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(4rem, 8vw, 7rem);
+      font-weight: 900;
+      line-height: .9;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      margin-bottom: .5rem;
+    }
+
+    .hero-subtitle {
+      font-family: "Noto Serif JP", serif;
+      font-size: .95rem;
+      font-weight: 300;
+      color: var(--ink);
+      letter-spacing: .18em;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem 1.5rem;
+      border-top: 1px solid var(--rule-lt);
+      padding-top: 2rem;
+    }
+    .meta-label {
+      font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: var(--ink-mid); font-weight: 700;
+      margin-bottom: .2rem;
+    }
+    .meta-value {
+      font-size: .88rem;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    /* hero right — photo panel */
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      background: var(--paper-warm);
+    }
+    .hero-right img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.2) brightness(.85);
+      transition: transform 8s ease;
+      display: block;
+    }
+    .hero-right:hover img { transform: scale(1.04); }
+    .hero-right::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent, transparent 6px,
+        rgba(15,13,11,.025) 6px, rgba(15,13,11,.025) 7px
+      );
+      pointer-events: none;
+    }
+
+    /* ══════════════════════════════════
+       SHARED
+    ══════════════════════════════════ */
+    .section-eyebrow {
+      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-mid); font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .section-eyebrow::after {
+      content: ""; flex: 1; height: 1px;
+      background: var(--rule-lt);
+    }
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 3rem;
+      line-height: 1.1;
+    }
+
+    /* ══════════════════════════════════
+       TASTING
+    ══════════════════════════════════ */
+    .tasting-section {
+      background: var(--paper);
+      padding: 5rem 4.5rem;
+      border-bottom: 2px solid var(--ink);
+      position: relative; overflow: hidden;
+    }
+    .tasting-section::before {
+      content: "珈琲";
+      position: absolute; right: 2rem; top: 50%;
+      transform: translateY(-50%);
+      font-family: "Noto Serif JP", serif;
+      font-size: 20rem; font-weight: 700;
+      color: rgba(15,13,11,.04);
+      pointer-events: none; line-height: 1;
+    }
+    .tasting-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1.5px solid var(--ink);
+    }
+    .tasting-card {
+      padding: 2rem 1.5rem;
+      border-right: 1.5px solid var(--ink);
+      transition: background .2s;
+    }
+    .tasting-card:last-child { border-right: none; }
+    .tasting-card:hover { background: var(--paper-warm); }
+    .tasting-icon { font-size: 1.3rem; margin-bottom: 1rem; display: block; }
+    .tasting-attr {
+      font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-mid); margin-bottom: .5rem; font-weight: 700;
+    }
+    .tasting-desc {
+      font-family: "Playfair Display", serif;
+      font-style: italic; font-size: .95rem;
+      color: var(--ink); line-height: 1.5;
+    }
+
+    /* ══════════════════════════════════
+       PROCESS
+    ══════════════════════════════════ */
+    .process-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 2px solid var(--ink);
+    }
+    .process-block {
+      padding: 5rem 4rem;
+      position: relative; overflow: hidden;
+      background: var(--panel-bg);
+    }
+    .process-block.light { background: var(--paper-warm); }
+    .process-block + .process-block { border-left: 2px solid var(--ink); }
+    .process-num {
+      font-family: "Playfair Display", serif;
+      font-size: 9rem; font-weight: 900;
+      color: rgba(15,13,11,.05);
+      position: absolute; top: -1.5rem; right: 1.5rem;
+      line-height: 1; pointer-events: none;
+    }
+    .process-block p {
+      font-size: .78rem; line-height: 2.1;
+      color: rgba(15,13,11,.82); max-width: 40ch;
+    }
+
+    /* ══════════════════════════════════
+       BREAKDOWN — inverted panel
+    ══════════════════════════════════ */
+    .breakdown-section {
+      background: var(--ink);
+      padding: 5rem 4.5rem;
+      border-bottom: 2px solid var(--ink);
+      position: relative; overflow: hidden;
+    }
+    .breakdown-section::before {
+      content: "円";
+      position: absolute; right: 2rem; bottom: -4rem;
+      font-family: "Noto Serif JP", serif;
+      font-size: 22rem; font-weight: 700;
+      color: rgba(247,243,236,.04); pointer-events: none;
+    }
+    .breakdown-section .section-eyebrow { color: rgba(247,243,236,.8); }
+    .breakdown-section .section-eyebrow::after { background: rgba(247,243,236,.12); }
+    .breakdown-section .section-title { color: var(--paper); }
+    .bars-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem;
+    }
+    .bar-pct {
+      font-family: "Playfair Display", serif;
+      font-size: 3.5rem; font-weight: 900;
+      color: var(--paper); line-height: 1; margin-bottom: .75rem;
+    }
+    .bar-pct span { font-size: 1.5rem; }
+    .bar-fill-track {
+      height: 2px; background: rgba(247,243,236,.15);
+      margin-bottom: .75rem; position: relative;
+    }
+    .bar-fill { position: absolute; top: 0; left: 0; bottom: 0; background: var(--paper); }
+    .bar-label { font-size: .78rem; line-height: 1.7; color: rgba(247,243,236,.88); }
+
+    /* ══════════════════════════════════
+       FARM
+    ══════════════════════════════════ */
+    .farm-section {
+      background: var(--paper);
+      padding: 6rem 4.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 6rem; align-items: center;
+      border-bottom: 2px solid var(--ink);
+    }
+    .farm-section p { font-size: .88rem; line-height: 2.2; color: rgba(15,13,11,.82); }
+    .farm-section p + p { margin-top: 1.5rem; }
+    .farm-badge {
+      display: inline-flex; gap: .5rem; align-items: center;
+      border: 1.5px solid var(--ink);
+      padding: .45rem 1rem;
+      font-size: .55rem; letter-spacing: .25em;
+      text-transform: uppercase; color: var(--ink); margin-top: 2rem;
+    }
+    .manga-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      border: 2px solid var(--ink);
+      background: var(--ink);
+    }
+    .manga-grid img {
+      width: 100%; height: 210px;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.15) brightness(.9);
+      display: block;
+    }
+    .manga-grid img:first-child { grid-column: span 2; height: 270px; }
+
+    /* ══════════════════════════════════
+       FOOTER
+    ══════════════════════════════════ */
+    footer {
+      background: var(--ink);
+      padding: 3rem 4.5rem;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(247,243,236,.1);
+      margin-bottom: 2rem;
+    }
+    .footer-brand {
+      font-family: "Playfair Display", serif;
+      font-size: 1.05rem;
+      letter-spacing: .08em;
+      color: var(--paper);
+    }
+    .footer-sub {
+      font-size: .5rem; letter-spacing: .3em;
+      text-transform: uppercase;
+      color: rgba(247,243,236,.75); margin-top: .35rem;
+    }
+    .footer-links {
+      display: flex; gap: 2rem; align-items: center;
+    }
+    .footer-link {
+      font-size: .72rem; letter-spacing: .08em;
+      color: rgba(247,243,236,.85);
+      text-decoration: none;
+      display: flex; align-items: center; gap: .4rem;
+      transition: color .2s;
+      text-transform: uppercase;
+    }
+    .footer-link:hover { color: var(--paper); }
+    .footer-link svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-legal {
+      font-size: .5rem; letter-spacing: .08em;
+      color: rgba(247,243,236,.7); line-height: 1.9; font-size: .62rem;
+    }
+    .co2-badge {
+      font-size: .5rem; letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(247,243,236,.8);
+      border: 1px solid rgba(247,243,236,.4);
+      padding: .3rem .75rem;
+    }
+
+    /* ══════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════ */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { gap: 1rem; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-right { height: 55vw; }
+      .hero-left { padding: 3rem 2rem 3rem 4rem; border-right: none; border-bottom: 2px solid var(--ink); }
+      .stamp { top: 1.5rem; right: 1.5rem; width: 100px; }
+      .jp-strip { width: 2.25rem; font-size: .6rem; }
+      .tasting-grid { grid-template-columns: 1fr 1fr; }
+      .tasting-card { border-bottom: 1.5px solid var(--ink); }
+      .tasting-card:nth-child(2) { border-right: none; }
+      .process-section { grid-template-columns: 1fr; }
+      .process-block + .process-block { border-left: none; border-top: 2px solid var(--ink); }
+      .bars-grid { grid-template-columns: 1fr 1fr; }
+      .farm-section { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 2rem; }
+      .tasting-section, .breakdown-section { padding: 4rem 2rem; }
+      .footer-top { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    /* ══════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-left > * { animation: fadeUp .7s ease both; }
+    .hero-left > *:nth-child(1) { animation-delay: .05s; }
+    .hero-left > *:nth-child(2) { animation-delay: .15s; }
+    .hero-left > *:nth-child(3) { animation-delay: .28s; }
+    .hero-left > *:nth-child(4) { animation-delay: .4s; }
+    .hero-left > *:nth-child(5) { animation-delay: .55s; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═════════════════════════════════════════════ -->
+<nav>
+  <a href="index.html" class="nav-brand">Nine Lives Roast</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="nlr-peru-passport.html" class="nav-link active">Peru Single Origin</a>
+    <a href="nlr-polar-blend.html" class="nav-link">Polar Blend</a>
+    <a href="index.html#contact" class="nav-link">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      Contact
+    </a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="jp-strip">ペルー チュルパンパ コーヒー 農場 カジャマルカ</div>
+
+  <div class="hero-left">
+    <div class="brand-tag">Nine Lives Roast &nbsp;·&nbsp; Origin Series</div>
+    <h1 class="hero-country">PERU</h1>
+    <p class="hero-subtitle">Churupampa &nbsp;·&nbsp; チュルパンパ</p>
+
+    <div class="hero-meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Farm</div>
+        <div class="meta-value">Finca Churupampa SAC</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Location</div>
+        <div class="meta-value">Chirinos, San Ignácio<br>Cajamarca, Peru</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Cultivars</div>
+        <div class="meta-value">Typica, Caturra, Pache</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Importer</div>
+        <div class="meta-value">This Side Up Coffees</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Roaster</div>
+        <div class="meta-value">Special Roast</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Process</div>
+        <div class="meta-value">Washed &amp;<br>Double Fermented</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Certifications</div>
+        <div class="meta-value">Organic &amp;<br>Fair Trade</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <img src="https://images.squarespace-cdn.com/content/v1/61a8c10142c923225c2ae43c/aae36c99-39d9-46a8-950d-e29ae8aa7ee3/Peru.jpeg" alt="Peru Churupampa farm" />
+  </div>
+</section>
+
+<!-- ═══ TASTING ═══════════════════════════════════════ -->
+<section class="tasting-section">
+  <div class="section-eyebrow">Tasting Notes</div>
+  <h2 class="section-title">What to taste for</h2>
+  <div class="tasting-grid">
+    <div class="tasting-card">
+      <span class="tasting-icon">☕</span>
+      <div class="tasting-attr">Aroma</div>
+      <div class="tasting-desc">Chocolate &amp; caramel</div>
+    </div>
+    <div class="tasting-card">
+      <span class="tasting-icon">💧</span>
+      <div class="tasting-attr">Body</div>
+      <div class="tasting-desc">Round mouthfeel with a thick body</div>
+    </div>
+    <div class="tasting-card">
+      <span class="tasting-icon">🫐</span>
+      <div class="tasting-attr">Acidity</div>
+      <div class="tasting-desc">Hint of dried berries</div>
+    </div>
+    <div class="tasting-card">
+      <span class="tasting-icon">🍫</span>
+      <div class="tasting-attr">Aftertaste</div>
+      <div class="tasting-desc">Dark chocolate, cacao powder, molasses</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROCESS + ROAST ═══════════════════════════════ -->
+<section class="process-section">
+  <div class="process-block">
+    <div class="process-num">01</div>
+    <div class="section-eyebrow">Processing</div>
+    <h2 class="section-title" style="font-size:1.9rem; margin-bottom:1.5rem;">Washed &amp; Double Fermented</h2>
+    <p>Using a hand pulper, cherries are pulped and fermented in tiled tanks for 12–24 hours depending on weather. They are then washed and undergo a second fermentation for the same duration — a meticulous process that defines this coffee's clean, structured profile.</p>
+  </div>
+  <div class="process-block light">
+    <div class="process-num">02</div>
+    <div class="section-eyebrow">Roasting</div>
+    <h2 class="section-title" style="font-size:1.9rem; margin-bottom:1.5rem;">Probat UG22 · 11 min</h2>
+    <p>Roasted on a 1965-built 22kg Probat UG22, a machine with real character. Total roast time is 11 minutes. After first crack, the coffee rests for 25% of the remaining time. Every bean follows a unique roast profile dialled in to unlock its best flavour.</p>
+  </div>
+</section>
+
+<!-- ═══ PRICE BREAKDOWN ═══════════════════════════════ -->
+<section class="breakdown-section">
+  <div class="section-eyebrow">Transparency</div>
+  <h2 class="section-title">Where your money goes</h2>
+  <div class="bars-grid">
+    <div class="bar-item">
+      <div class="bar-pct">60<span>%</span></div>
+      <div class="bar-fill-track"><div class="bar-fill" style="width:60%"></div></div>
+      <div class="bar-label">Farmers — growing, harvest, milling &amp; preparing bags for export</div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-pct">23<span>%</span></div>
+      <div class="bar-fill-track"><div class="bar-fill" style="width:23%"></div></div>
+      <div class="bar-label">Importing, financing, shipping, sampling &amp; logistics by This Side Up Coffees</div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-pct">11<span>%</span></div>
+      <div class="bar-fill-track"><div class="bar-fill" style="width:11%"></div></div>
+      <div class="bar-label">Export by Churupampa (own licence)</div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-pct">6<span>%</span></div>
+      <div class="bar-fill-track"><div class="bar-fill" style="width:6%"></div></div>
+      <div class="bar-label">Total shipping to Rotterdam — full container loads keep costs low</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FARM STORY ════════════════════════════════════ -->
+<section class="farm-section">
+  <div>
+    <div class="section-eyebrow">Origin Story</div>
+    <h2 class="section-title" style="margin-bottom:2rem;">The Tocto Family &amp; Churupampa</h2>
+    <p>Churupampa is not just a farm — it's a social business model. The Tocto family has been steadily expanding their vision to 30 neighbouring farms in Chirinos, bringing upgrades like improved processing facilities, plant renovation schemes with new varieties, and covered raised-bed drying to ensure stability through seasonal rains.</p>
+    <p>In 2018, their quality control team cupped around 4,000 samples. Not a single lot goes uncupped. That level of dedication is rare. This coffee is also Organic and Fair Trade certified.</p>
+    <div class="farm-badge">🌿 Organic &nbsp;·&nbsp; ☯ Fair Trade &nbsp;·&nbsp; 🌍 CO₂-Neutral</div>
+  </div>
+  <div class="manga-grid">
+    <img src="https://images.squarespace-cdn.com/content/v1/61a8c10142c923225c2ae43c/efd193ac-d873-4aad-aab2-38635723e8b5/WhatsApp%2BImage%2B2018-02-24%2Bat%2B22.19.02.jpeg" alt="Farm" />
+    <img src="https://images.squarespace-cdn.com/content/v1/61a8c10142c923225c2ae43c/bb490073-dbb1-40b5-9c37-471763de2276/Schermafbeelding%2B2022-03-04%2Bom%2B16.52.00.png" alt="Process" />
+    <img src="https://images.squarespace-cdn.com/content/v1/61a8c10142c923225c2ae43c/c53258c0-0b11-4c5d-b7e3-786b24f6cf27/WhatsApp%2BImage%2B2018-02-24%2Bat%2B22.19.05.jpeg" alt="Drying" />
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════ -->
+<footer>
+  <div class="footer-top">
+    <div><div class="footer-brand">Nine Lives Roast</div>
+        <div class="footer-sub">Manga-inspired · Amsterdam · CO₂-neutral</div></div>
+    <div class="footer-links">
+      <a href="mailto:info@ninelivesroast.nl" class="footer-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        info@ninelivesroast.nl
+      </a>
+      <a href="https://www.instagram.com/ninelivesroast?igsh=Mm9xYnh0NXYxbWMx" target="_blank" rel="noopener" class="footer-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        @ninelivesroast
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-legal">
+      © 2026 Nine Lives Roast, All rights reserved. &nbsp;·&nbsp; VAT: NL005324557B67
+    </div>
+    <div class="co2-badge">CO₂-neutral roastery</div>
+  </div>
+</footer>
+
+</body>
+</html>
