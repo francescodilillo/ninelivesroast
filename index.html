@@ -68,6 +68,43 @@
     .nav-link.active { color: var(--ink); }
     .nav-link svg { width: 13px; height: 13px; fill: currentColor; }
 
+    /* hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer;
+      padding: .5rem;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--ink);
+      transition: transform .25s, opacity .25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* mobile drawer — hidden by default everywhere */
+    .nav-drawer {
+      position: fixed; top: 4.5rem; left: 0; right: 0;
+      background: var(--paper);
+      border-bottom: 2px solid var(--ink);
+      z-index: 999;
+      flex-direction: column;
+      /* hide off-screen; transition on transform */
+      transform: translateY(-105%);
+      transition: transform .3s ease;
+      /* only visible on mobile, but always in flow so transition works */
+      display: none;
+    }
+    .nav-drawer .nav-link {
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--rule-lt);
+      font-size: .7rem;
+      display: flex;
+    }
+    .nav-drawer .nav-link:last-child { border-bottom: none; }
+
     /* ══════════════════════════════════
        HERO
     ══════════════════════════════════ */
@@ -680,26 +717,69 @@
        RESPONSIVE
     ══════════════════════════════════ */
     @media (max-width: 900px) {
-      nav { padding: 0 1.5rem; }
+      /* nav */
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      /* show the drawer container on mobile */
+      .nav-drawer { display: flex; }
+      /* when open, slide into view */
+      .nav-drawer.open { transform: translateY(0); }
+
+      /* hero */
       .hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-right { height: 70vw; }
-      .hero-left { padding: 3rem 2rem 3rem 4.5rem; border-right: none; border-bottom: 2px solid var(--ink); }
-      .logo-pair { flex-direction: column; }
-      .logo-cell { width: 100%; height: 200px; }
-      .about-section { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 2rem; }
+      .jp-strip { display: none; }
+      .hero-left { padding: 3rem 1.25rem 3rem 1.25rem; border-right: none; border-bottom: 2px solid var(--ink); }
+      .hero-right { height: auto; min-height: 0; width: 100%; }
+      .hero-bg-text { font-size: 8rem; }
+
+      /* logo pair */
+      .logo-pair { flex-direction: column; width: 100%; }
+      .logo-cell { width: 100%; }
+      .logo-cell-img { height: 220px; }
+      .hero-logo-wrap { padding: 2rem 0 2.5rem; width: 100%; align-items: stretch; gap: 1.5rem; }
+      .logo-cell-footer { padding: 1rem 1.25rem; }
+      .logo-cell-name { font-size: .8rem; }
+      .logo-cell-sub { font-size: .42rem; }
+
+      /* about */
+      .about-section { grid-template-columns: 1fr; gap: 3rem; padding: 3.5rem 1.25rem; }
+      .about-section::before { font-size: 10rem; right: 0; }
       .about-stats { grid-template-columns: 1fr 1fr; }
+
+      /* products */
+      .products-section { padding: 3.5rem 1.25rem; }
+      .products-section::before { font-size: 9rem; }
       .products-grid { grid-template-columns: 1fr; }
+      .product-card-inner { grid-template-columns: 1fr; }
+      .product-bag { border-right: none; border-bottom: 1.5px solid var(--ink); height: 220px; }
+      .product-info { padding: 2rem 1.5rem 3.5rem; }
+
+      /* values */
+      .values-section { padding: 3.5rem 1.25rem; }
+      .values-section::before { font-size: 10rem; }
       .values-grid { grid-template-columns: 1fr; }
-      .values-section { padding: 4rem 2rem; }
       .value-cell { border-right: none; border-bottom: 1px solid rgba(247,243,236,.08); }
-      .methods-section { padding: 4rem 2rem; }
+      .value-cell:last-child { border-bottom: none; }
+
+      /* methods */
+      .methods-section { padding: 3.5rem 1.25rem; }
       .methods-grid { grid-template-columns: 1fr; }
       .method-card { border-right: none; border-bottom: 1.5px solid var(--ink); }
       .method-card:last-child { border-bottom: none; }
-      .contact-section { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 2rem; }
-      .products-section { padding: 4rem 2rem; }
+
+      /* contact */
+      .contact-section { grid-template-columns: 1fr; gap: 2.5rem; padding: 3.5rem 1.25rem; }
+      .contact-section::before { font-size: 9rem; }
+
+      /* footer */
+      footer { padding: 2.5rem 1.25rem; }
       .footer-top { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
       .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+
+      /* section headings */
+      .section-title { font-size: clamp(1.5rem, 6vw, 2rem); margin-bottom: 2rem; }
     }
 
     /* ══════════════════════════════════
@@ -732,13 +812,22 @@
       Contact
     </a>
   </div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html" class="nav-link active">Home</a>
+  <a href="nlr-peru-passport.html" class="nav-link">Peru Single Origin</a>
+  <a href="nlr-polar-blend.html" class="nav-link">Polar Blend</a>
+  <a href="#contact" class="nav-link" id="drawerContact">Contact</a>
+</div>
 
 <!-- ═══ HERO ═════════════════════════════════════════════ -->
 <section class="hero">
-  <div class="jp-strip">ナインライブスロースト · アムステルダム · スペシャルティコーヒー</div>
-
   <div class="hero-left">
+  <div class="jp-strip">ナインライブスロースト · アムステルダム · スペシャルティコーヒー</div>
     <div class="brand-tag">Nine Lives Roast &nbsp;·&nbsp; Amsterdam</div>
     <h1 class="hero-title">NINE<br>LIVES<br>ROAST</h1>
     <p class="hero-subtitle">Specialty Coffee &nbsp;·&nbsp; スペシャルティ</p>
@@ -876,7 +965,7 @@
 
   <div class="products-grid">
 
-    <a href="nlr-peru-passport.html" class="product-card">
+    <a href="nlr-peru-passport-v6.html" class="product-card">
       <div class="product-card-inner">
         <div class="product-bag">
           <img src="peru_bag.jpeg" alt="Peru Single Origin bag" />
@@ -907,7 +996,7 @@
       </div>
     </a>
 
-    <a href="nlr-polar-blend.html" class="product-card">
+    <a href="nlr-polar-blend-v6.html" class="product-card">
       <div class="product-card-inner">
         <div class="product-bag">
           <img src="polar_bag.jpeg" alt="Polar Blend bag" />
@@ -1041,8 +1130,8 @@
       <div class="footer-sub">Manga-inspired · Amsterdam · CO₂-neutral</div>
     </div>
     <div class="footer-links">
-      <a href="nlr-peru-passport.html" class="footer-link">Peru Single Origin</a>
-      <a href="nlr-polar-blend.html" class="footer-link">Polar Blend</a>
+      <a href="nlr-peru-passport-v6.html" class="footer-link">Peru Single Origin</a>
+      <a href="nlr-polar-blend-v6.html" class="footer-link">Polar Blend</a>
       <a href="mailto:info@ninelivesroast.nl" class="footer-link">
         <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         info@ninelivesroast.nl
@@ -1061,5 +1150,30 @@
   </div>
 </footer>
 
+<script>
+  const btn = document.getElementById('hamburger');
+  const drawer = document.getElementById('navDrawer');
+
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+
+  // close on any drawer link tap
+  drawer.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      btn.classList.remove('open');
+      drawer.classList.remove('open');
+    });
+  });
+
+  // close on outside tap
+  document.addEventListener('click', (e) => {
+    if (!btn.contains(e.target) && !drawer.contains(e.target)) {
+      btn.classList.remove('open');
+      drawer.classList.remove('open');
+    }
+  });
+</script>
 </body>
 </html>
