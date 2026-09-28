@@ -104,7 +104,7 @@
 }
 .tasting-card:last-child { border-right: none; }
 .tasting-card:hover { background: var(--paper-warm); }
-.tasting-icon { font-size: 1.3rem; margin-bottom: 1rem; display: block; }
+.tasting-icon { width: 1.85rem; height: 1.85rem; margin-bottom: 1rem; display: block; color: var(--ink); }
 .tasting-attr {
   font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-mid); margin-bottom: .5rem; font-weight: 700;
 }
@@ -194,7 +194,7 @@
   display: inline-flex; gap: .5rem; align-items: center;
   border: 1.5px solid var(--ink);
   padding: .45rem 1rem;
-  font-size: .55rem; letter-spacing: .25em;
+  font-size: .62rem; letter-spacing: .25em;
   text-transform: uppercase; color: var(--ink); margin-top: 2rem;
 }
 .manga-grid {

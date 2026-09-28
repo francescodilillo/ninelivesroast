@@ -10,7 +10,7 @@
   --paper-warm: #ede7dc;
   --panel-bg:   #faf7f2;
   --rule-lt:    rgba(15,13,11,.12);
-  --muted:      rgba(15,13,11,.4);
+  --muted:      rgba(15,13,11,.62); /* ≥4.5:1 on paper for small labels */
   --nav-h:      4.5rem;
   --title-gap:  2rem;
 }
@@ -170,6 +170,12 @@ nav {
   line-height: 1.1;
 }
 
+/* inline line icons (icons.svg) inside text badges */
+.badge-icon {
+  width: 1.15em; height: 1.15em;
+  vertical-align: -.25em;
+}
+
 /* ══════════════════════════════════
    FOOTER
 ══════════════════════════════════ */
@@ -192,7 +198,7 @@ footer {
   color: var(--paper);
 }
 .footer-sub {
-  font-size: .5rem; letter-spacing: .3em;
+  font-size: .6rem; letter-spacing: .3em;
   text-transform: uppercase;
   color: rgba(247,243,236,.75); margin-top: .35rem;
 }
@@ -223,7 +229,7 @@ footer {
   text-decoration: underline; text-underline-offset: 3px;
 }
 .co2-badge {
-  font-size: .5rem; letter-spacing: .2em;
+  font-size: .58rem; letter-spacing: .2em;
   text-transform: uppercase;
   color: rgba(247,243,236,.8);
   border: 1px solid rgba(247,243,236,.4);

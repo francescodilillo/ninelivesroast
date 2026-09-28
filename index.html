@@ -67,24 +67,25 @@
     }
 
     .hero-cta-row {
-      display: flex; gap: 1rem; align-items: center;
+      display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
     }
     .btn-primary {
       display: inline-flex; align-items: center; gap: .5rem;
       background: var(--ink); color: var(--paper);
       font-family: "Space Mono", monospace;
-      font-size: .55rem; letter-spacing: .28em;
+      font-size: .62rem; letter-spacing: .28em;
       text-transform: uppercase; text-decoration: none;
       padding: .9rem 1.75rem;
       transition: background .2s, color .2s;
       border: 2px solid var(--ink);
     }
+    .btn-primary, .btn-secondary { white-space: nowrap; }
     .btn-primary:hover { background: transparent; color: var(--ink); }
     .btn-secondary {
       display: inline-flex; align-items: center; gap: .5rem;
       background: transparent; color: var(--ink);
       font-family: "Space Mono", monospace;
-      font-size: .55rem; letter-spacing: .28em;
+      font-size: .62rem; letter-spacing: .28em;
       text-transform: uppercase; text-decoration: none;
       padding: .9rem 1.75rem;
       transition: background .2s, color .2s;
@@ -115,13 +116,14 @@
       position: relative; z-index: 2;
       display: flex; flex-direction: column;
       align-items: center; gap: 3rem;
+      /* cap to the column so the label cards shrink instead of being clipped on 900–1200px screens */
+      max-width: calc(100% - 3rem);
     }
     .logo-pair {
       display: flex; gap: 3px;
       background: var(--ink);
       border: 2px solid var(--ink);
-      /* shrink with the column instead of being clipped on 900–1200px screens */
-      max-width: calc(100% - 3rem);
+      max-width: 100%;
     }
     .logo-cell {
       background: var(--paper-warm);
@@ -156,7 +158,7 @@
       color: var(--ink); letter-spacing: .04em;
     }
     .logo-cell-sub {
-      font-size: .45rem; letter-spacing: .25em;
+      font-size: .58rem; letter-spacing: .14em;
       text-transform: uppercase; color: var(--muted);
       margin-top: .15rem;
     }
@@ -167,7 +169,7 @@
     }
     .logo-cell-footer:hover .logo-cell-arrow { color: var(--ink); transform: translateX(3px); }
     .hero-stamp {
-      font-size: .48rem; letter-spacing: .3em;
+      font-size: .6rem; letter-spacing: .3em;
       text-transform: uppercase; color: var(--muted);
       text-align: center;
     }
@@ -199,7 +201,7 @@
       animation: marquee 22s linear infinite;
     }
     .marquee-item {
-      font-size: .52rem; letter-spacing: .3em;
+      font-size: .62rem; letter-spacing: .3em;
       text-transform: uppercase;
       color: rgba(247,243,236,.5);
       flex-shrink: 0;
@@ -242,7 +244,7 @@
       display: inline-flex; gap: .5rem; align-items: center;
       border: 1.5px solid var(--ink);
       padding: .45rem 1rem;
-      font-size: .55rem; letter-spacing: .25em;
+      font-size: .62rem; letter-spacing: .25em;
       text-transform: uppercase; color: var(--ink); margin-top: 2rem;
     }
 
@@ -367,7 +369,7 @@
       font-size: 1.6rem; font-weight: 700; color: var(--ink);
     }
     .product-tag {
-      font-size: .48rem; letter-spacing: .25em;
+      font-size: .6rem; letter-spacing: .25em;
       text-transform: uppercase; color: var(--muted);
       border: 1px solid rgba(15,13,11,.2);
       padding: .3rem .75rem;
@@ -381,7 +383,7 @@
     }
     .pip.filled { background: var(--ink); }
     .roast-label {
-      font-size: .48rem; letter-spacing: .25em;
+      font-size: .6rem; letter-spacing: .25em;
       text-transform: uppercase; color: var(--muted);
       margin-left: .5rem;
     }
@@ -421,7 +423,8 @@
     .value-cell:last-child { border-right: none; }
     .value-cell:hover { background: rgba(247,243,236,.04); }
     .value-icon {
-      font-size: 1.4rem; margin-bottom: 1.2rem; display: block;
+      width: 2rem; height: 2rem; margin-bottom: 1.2rem; display: block;
+      color: var(--paper);
     }
     .value-name {
       font-family: "Playfair Display", serif;
@@ -454,7 +457,7 @@
     }
     .method-card:last-child { border-right: none; }
     .method-card:hover { background: var(--paper-warm); }
-    .method-icon { font-size: 1.5rem; margin-bottom: 1.2rem; display: block; }
+    .method-icon { width: 2rem; height: 2rem; margin-bottom: 1.2rem; display: block; color: var(--ink); }
     .method-name {
       font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-mid); margin-bottom: .5rem; font-weight: 700;
     }
@@ -537,10 +540,10 @@
       .logo-pair { flex-direction: column; width: 100%; max-width: none; }
       .logo-cell { width: 100%; flex-basis: auto; }
       .logo-cell-img { height: 220px; }
-      .hero-logo-wrap { padding: 2rem 0 2.5rem; width: 100%; align-items: stretch; gap: 1.5rem; }
+      .hero-logo-wrap { padding: 2rem 0 2.5rem; width: 100%; max-width: none; align-items: stretch; gap: 1.5rem; }
       .logo-cell-footer { padding: 1rem 1.25rem; }
       .logo-cell-name { font-size: .8rem; }
-      .logo-cell-sub { font-size: .42rem; }
+      .logo-cell-sub { font-size: .55rem; }
 
       /* about */
       .about-section { grid-template-columns: 1fr; gap: 3rem; padding: 3.5rem 1.25rem; }
@@ -650,7 +653,7 @@
         </div>
       </div>
       <div class="hero-stamp">Amsterdam, NL · Est. 2025</div>
-      <a href="#contact" class="btn-primary" style="font-size:.55rem; letter-spacing:.28em; padding:.9rem 2.5rem; margin-top:.5rem;">Order now</a>
+      <a href="#contact" class="btn-primary" style="padding:.9rem 2.5rem; margin-top:.5rem;">Order now</a>
     </div>
   </div>
 </section>
@@ -707,7 +710,7 @@
     <p>We partner with a local Amsterdam roaster to source beans ethically from Peru, Colombia, and Brazil, and roast them through CO₂-neutral processes. The result is delicious, sustainable coffee that doesn't ask you to compromise on either.</p>
     <p>Running as a solo eenmanszaak keeps things small and personal: every bag that reaches you has been thought about, not just processed.</p>
     <p style="font-size:.72rem; line-height:2.0; color:rgba(15,13,11,.5);">All illustrations by <a href="https://www.instagram.com/lucare.ink/" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:underline; text-underline-offset:3px;">@lucare.ink</a>.</p>
-    <div class="about-badge">🌿 Organic &nbsp;·&nbsp; ☯ Fair Trade &nbsp;·&nbsp; 🌍 CO₂-Neutral</div>
+    <div class="about-badge"><svg class="badge-icon" aria-hidden="true"><use href="icons.svg#leaf"/></svg> Organic &nbsp;·&nbsp; <svg class="badge-icon" aria-hidden="true"><use href="icons.svg#scale"/></svg> Fair Trade &nbsp;·&nbsp; <svg class="badge-icon" aria-hidden="true"><use href="icons.svg#globe"/></svg> CO₂-Neutral</div>
   </div>
 
   <div class="about-stats">
@@ -736,7 +739,7 @@
   <h2 class="section-title">Two coffees, one roaster, no compromises</h2>
   <p style="font-size:.78rem; line-height:2.0; color:rgba(15,13,11,.6); max-width:58ch;">Both available in 250g bags of whole beans. Both versatile enough for espresso, filter or moka. Both €10. To order, <a href="mailto:info@ninelivesroast.nl" style="color:var(--ink); text-decoration:underline; text-underline-offset:3px;">send us an email</a> or <a href="https://www.instagram.com/ninelivesroast" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:underline; text-underline-offset:3px;">DM on Instagram</a>.</p>
 
-  <div style="font-size:.48rem; letter-spacing:.28em; text-transform:uppercase; color:var(--muted); margin-top:1.25rem;">
+  <div style="font-size:.6rem; letter-spacing:.28em; text-transform:uppercase; color:var(--muted); margin-top:1.25rem;">
     → Click on a coffee to see the full origin story, tasting notes &amp; price breakdown
   </div>
 
@@ -813,17 +816,17 @@
   <h2 class="section-title">Good coffee doesn't cost the earth</h2>
   <div class="values-grid">
     <div class="value-cell">
-      <span class="value-icon">🌍</span>
+      <svg class="value-icon" aria-hidden="true"><use href="icons.svg#globe"/></svg>
       <div class="value-name">CO₂-Neutral</div>
       <div class="value-desc">We roast through CO₂-neutral processes and work with partners who take the same approach seriously. It's part of how we do things, not a badge we wear.</div>
     </div>
     <div class="value-cell">
-      <span class="value-icon">🤝</span>
+      <svg class="value-icon" aria-hidden="true"><use href="icons.svg#handshake"/></svg>
       <div class="value-name">Transparent Sourcing</div>
       <div class="value-desc">We publish exactly where your money goes and farmers get the majority. Our importer, This Side Up Coffees, and our roaster, Special Roast, work directly with producers to keep the chain short and honest.</div>
     </div>
     <div class="value-cell">
-      <span class="value-icon">🐱</span>
+      <svg class="value-icon" aria-hidden="true"><use href="icons.svg#cat"/></svg>
       <div class="value-name">Made with Care</div>
       <div class="value-desc">This is a one-person operation. Every decision, from bean selection to the logo, is personal. That's not a limitation, it's the whole point.</div>
     </div>
@@ -836,17 +839,17 @@
   <h2 class="section-title">Works with whatever you brew on</h2>
   <div class="methods-grid">
     <div class="method-card">
-      <span class="method-icon">☕</span>
+      <svg class="method-icon" aria-hidden="true"><use href="icons.svg#espresso"/></svg>
       <div class="method-name">Espresso</div>
       <div class="method-desc">Concentrated, intense, pulls beautifully on both coffees</div>
     </div>
     <div class="method-card">
-      <span class="method-icon">🫖</span>
+      <svg class="method-icon" aria-hidden="true"><use href="icons.svg#pourover"/></svg>
       <div class="method-name">Filter / Pour-over</div>
       <div class="method-desc">Lets the nuances shine, especially the Polar Blend's fruit notes</div>
     </div>
     <div class="method-card">
-      <span class="method-icon">🫕</span>
+      <svg class="method-icon" aria-hidden="true"><use href="icons.svg#moka"/></svg>
       <div class="method-name">Moka Pot</div>
       <div class="method-desc">Rich and full, the Peru single origin is made for this</div>
     </div>
