@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page not found — Nine Lives Roast</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Mono:wght@400;700&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet" />
+  <!-- Root-absolute paths: GitHub Pages serves this page for missing URLs at any depth -->
+  <link rel="stylesheet" href="/site.css" />
+  <style>
+    /* 404 page only — shared rules live in site.css */
+    .lost {
+      margin-top: var(--nav-h);
+      min-height: calc(100vh - var(--nav-h));
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 2px solid var(--ink);
+      position: relative; overflow: hidden;
+    }
+    .lost-left {
+      position: relative;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 3rem 5rem 6rem;
+      border-right: 2px solid var(--ink);
+    }
+    .lost-code {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(5rem, 12vw, 10rem);
+      font-weight: 900; line-height: .85;
+      letter-spacing: -.02em;
+      margin-bottom: 1rem;
+    }
+    .lost-sub {
+      font-family: "Noto Serif JP", serif;
+      font-size: .95rem; font-weight: 300;
+      letter-spacing: .18em;
+      margin-bottom: 2.5rem;
+    }
+    .lost-text {
+      font-size: .8rem; line-height: 2.1;
+      color: rgba(15,13,11,.82); max-width: 44ch;
+      border-top: 1px solid var(--rule-lt);
+      padding-top: 2rem; margin-bottom: 2.5rem;
+    }
+    .lost-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .btn {
+      display: inline-flex; align-items: center;
+      font-family: "Space Mono", monospace;
+      font-size: .6rem; letter-spacing: .28em;
+      text-transform: uppercase; text-decoration: none;
+      padding: .9rem 1.75rem;
+      border: 2px solid var(--ink);
+      transition: background .2s, color .2s;
+    }
+    .btn-primary { background: var(--ink); color: var(--paper); }
+    .btn-primary:hover { background: transparent; color: var(--ink); }
+    .btn-secondary { background: transparent; color: var(--ink); }
+    .btn-secondary:hover { background: var(--ink); color: var(--paper); }
+
+    .lost-right {
+      background: var(--paper-warm);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .lost-right::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(-45deg, transparent, transparent 6px, rgba(15,13,11,.02) 6px, rgba(15,13,11,.02) 7px);
+      pointer-events: none;
+    }
+    .lost-kanji {
+      position: absolute; bottom: -3rem; right: -1rem;
+      font-family: "Noto Serif JP", serif;
+      font-size: 18rem; font-weight: 700; line-height: 1;
+      color: rgba(15,13,11,.05);
+      pointer-events: none; white-space: nowrap;
+    }
+    .lives {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 3px; background: var(--ink);
+      border: 2px solid var(--ink);
+    }
+    .life {
+      width: 5.5rem; height: 5.5rem;
+      background: var(--paper);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .life svg { width: 60%; height: 60%; }
+    .life.spent { background: var(--paper-warm); }
+    .life.spent svg { opacity: .15; }
+    .lives-caption {
+      position: absolute; bottom: 2rem; left: 0; right: 0;
+      text-align: center; z-index: 1;
+      font-size: .6rem; letter-spacing: .25em;
+      text-transform: uppercase; color: var(--ink-mid);
+    }
+
+    @media (max-width: 900px) {
+      .lost { grid-template-columns: 1fr; min-height: auto; }
+      .lost-left { padding: 3rem 1.25rem; border-right: none; border-bottom: 2px solid var(--ink); }
+      .lost-right { padding: 3rem 1.25rem 5rem; }
+      .lost-kanji { font-size: 9rem; }
+      .life { width: 4.5rem; height: 4.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">Nine Lives Roast</a>
+  <div class="nav-links">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/nlr-peru-passport.html" class="nav-link">Peru Single Origin</a>
+    <a href="/nlr-polar-blend.html" class="nav-link">Polar Blend</a>
+    <a href="/#contact" class="nav-link">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      Contact
+    </a>
+  </div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-drawer" id="navDrawer">
+  <a href="/" class="nav-link">Home</a>
+  <a href="/nlr-peru-passport.html" class="nav-link">Peru Single Origin</a>
+  <a href="/nlr-polar-blend.html" class="nav-link">Polar Blend</a>
+  <a href="/#contact" class="nav-link">Contact</a>
+</div>
+
+<main class="lost">
+  <div class="lost-left">
+    <div class="brand-tag">Nine Lives Roast &nbsp;·&nbsp; Error</div>
+    <h1 class="lost-code">404</h1>
+    <p class="lost-sub">Page not found &nbsp;·&nbsp; 迷子</p>
+    <p class="lost-text">
+      This page has wandered off, the way cats do. It may have moved, or the link
+      might be mistyped. Good news: the coffee is still exactly where we left it.
+    </p>
+    <div class="lost-actions">
+      <a href="/" class="btn btn-primary">Back to home</a>
+      <a href="/#products" class="btn btn-secondary">See the coffees</a>
+    </div>
+  </div>
+
+  <div class="lost-right" aria-hidden="true">
+    <div class="lost-kanji">迷子</div>
+    <div class="lives" id="lives"></div>
+    <div class="lives-caption">One life used · eight to go</div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Nine Lives Roast</div>
+      <div class="footer-sub">Manga-inspired · Amsterdam · CO₂-neutral</div>
+    </div>
+    <div class="footer-links">
+      <a href="/nlr-peru-passport.html" class="footer-link">Peru Single Origin</a>
+      <a href="/nlr-polar-blend.html" class="footer-link">Polar Blend</a>
+      <a href="mailto:info@ninelivesroast.nl" class="footer-link">info@ninelivesroast.nl</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-legal">
+      © 2026 Nine Lives Roast, All rights reserved. &nbsp;·&nbsp; VAT: NL005324557B67
+    </div>
+    <div class="co2-badge">CO₂-neutral roastery</div>
+  </div>
+</footer>
+
+<script>
+  // nine lives, the first one spent
+  (function () {
+    const cat = '<svg viewBox="0 0 64 64"><path fill="#0f0d0b" d="M12 12 L25 21 Q32 19 39 21 L52 12 L51 31 Q55 38 53 45 Q48 57 32 57 Q16 57 11 45 Q9 38 13 31 Z"/><ellipse cx="23.5" cy="37" rx="6" ry="6.5" fill="#f7f3ec"/><ellipse cx="40.5" cy="37" rx="6" ry="6.5" fill="#f7f3ec"/><circle cx="24.5" cy="37.5" r="2.6" fill="#0f0d0b"/><circle cx="39.5" cy="37.5" r="2.6" fill="#0f0d0b"/><path d="M26 47 Q29 50 32 47 Q35 50 38 47" fill="none" stroke="#f7f3ec" stroke-width="1.8" stroke-linecap="round"/></svg>';
+    const grid = document.getElementById('lives');
+    for (let i = 0; i < 9; i++) {
+      const d = document.createElement('div');
+      d.className = 'life' + (i === 0 ? ' spent' : '');
+      d.innerHTML = cat;
+      grid.appendChild(d);
+    }
+  })();
+</script>
+<script src="/site.js"></script>
+</body>
+</html>

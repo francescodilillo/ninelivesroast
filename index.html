@@ -4,119 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nine Lives Roast — Specialty Coffee · Amsterdam</title>
+  <meta name="description" content="Manga-inspired specialty coffee from Amsterdam: ethically sourced beans from Peru, Colombia &amp; Brazil, roasted CO₂-neutral. 250g bags, €10." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Nine Lives Roast — Specialty Coffee · Amsterdam" />
+  <meta property="og:description" content="Manga-inspired specialty coffee from Amsterdam: ethically sourced beans from Peru, Colombia &amp; Brazil, roasted CO₂-neutral. 250g bags, €10." />
+  <meta property="og:url" content="https://ninelivesroast.nl/" />
+  <meta property="og:image" content="https://ninelivesroast.nl/label_lightroast.png" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="canonical" href="https://ninelivesroast.nl/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Mono:wght@400;700&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="site.css" />
   <style>
-    :root {
-      --ink:        #0f0d0b;
-      --ink-mid:    #2a2520;
-      --paper:      #f7f3ec;
-      --paper-warm: #ede7dc;
-      --panel-bg:   #faf7f2;
-      --rule-lt:    rgba(15,13,11,.12);
-      --muted:      rgba(15,13,11,.4);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--paper);
-      color: var(--ink);
-      font-family: "Space Mono", monospace;
-      overflow-x: hidden;
-    }
-
-    /* grain overlay */
-    body::after {
-      content: "";
-      position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      opacity: .5; mix-blend-mode: multiply;
-    }
-
-    /* ══════════════════════════════════
-       NAV
-    ══════════════════════════════════ */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 1000;
-      background: var(--paper);
-      border-bottom: 2px solid var(--ink);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 4.5rem;
-      height: 4.5rem;
-    }
-    .nav-brand {
-      font-family: "Playfair Display", serif;
-      font-size: 1.1rem; font-weight: 700;
-      letter-spacing: .06em; color: var(--ink);
-      text-decoration: none;
-    }
-    .nav-links {
-      display: flex; gap: 2.5rem; align-items: center;
-    }
-    .nav-link {
-      font-size: .75rem; letter-spacing: .15em;
-      text-transform: uppercase; color: var(--ink-mid);
-      font-weight: 700;
-      text-decoration: none;
-      transition: color .2s;
-      display: flex; align-items: center; gap: .4rem;
-    }
-    .nav-link:hover { color: var(--ink); }
-    .nav-link.active { color: var(--ink); }
-    .nav-link svg { width: 13px; height: 13px; fill: currentColor; }
-
-    /* hamburger */
-    .nav-hamburger {
-      display: none;
-      flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: pointer;
-      padding: .5rem;
-    }
-    .nav-hamburger span {
-      display: block; width: 22px; height: 2px;
-      background: var(--ink);
-      transition: transform .25s, opacity .25s;
-    }
-    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* mobile drawer — hidden by default everywhere */
-    .nav-drawer {
-      position: fixed; top: 4.5rem; left: 0; right: 0;
-      background: var(--paper);
-      border-bottom: 2px solid var(--ink);
-      z-index: 999;
-      flex-direction: column;
-      /* hide off-screen; transition on transform */
-      transform: translateY(-105%);
-      transition: transform .3s ease;
-      /* only visible on mobile, but always in flow so transition works */
-      display: none;
-    }
-    .nav-drawer .nav-link {
-      padding: 1.1rem 1.5rem;
-      border-bottom: 1px solid var(--rule-lt);
-      font-size: .7rem;
-      display: flex;
-    }
-    .nav-drawer .nav-link:last-child { border-bottom: none; }
+    /* Home page only — shared rules live in site.css */
 
     /* ══════════════════════════════════
        HERO
     ══════════════════════════════════ */
-    .hero {
-      margin-top: 4rem;
-      position: relative;
-      min-height: calc(100vh - 4rem);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      overflow: hidden;
-      border-bottom: 2px solid var(--ink);
-    }
+    .hero { min-height: calc(100vh - var(--nav-h)); }
 
     .hero-left {
       position: relative;
@@ -127,36 +35,6 @@
       padding: 5rem 3rem 5rem 6rem;
       z-index: 2;
       border-right: 2px solid var(--ink);
-    }
-
-    .jp-strip {
-      position: absolute;
-      top: 0; left: 0; bottom: 0;
-      width: 2.75rem;
-      background: var(--ink);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      writing-mode: vertical-rl;
-      font-family: "Noto Serif JP", serif;
-      font-size: .68rem;
-      letter-spacing: .28em;
-      color: var(--paper);
-      z-index: 3;
-    }
-
-    .brand-tag {
-      font-size: .75rem; letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--ink-mid);
-      display: flex; align-items: center; gap: .75rem;
-      margin-bottom: 1.5rem;
-    }
-    .brand-tag::before {
-      content: "";
-      display: inline-block;
-      width: 2rem; height: 1px;
-      background: var(--ink);
     }
 
     .hero-title {
@@ -189,24 +67,25 @@
     }
 
     .hero-cta-row {
-      display: flex; gap: 1rem; align-items: center;
+      display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
     }
     .btn-primary {
       display: inline-flex; align-items: center; gap: .5rem;
       background: var(--ink); color: var(--paper);
       font-family: "Space Mono", monospace;
-      font-size: .55rem; letter-spacing: .28em;
+      font-size: .62rem; letter-spacing: .28em;
       text-transform: uppercase; text-decoration: none;
       padding: .9rem 1.75rem;
       transition: background .2s, color .2s;
       border: 2px solid var(--ink);
     }
+    .btn-primary, .btn-secondary { white-space: nowrap; }
     .btn-primary:hover { background: transparent; color: var(--ink); }
     .btn-secondary {
       display: inline-flex; align-items: center; gap: .5rem;
       background: transparent; color: var(--ink);
       font-family: "Space Mono", monospace;
-      font-size: .55rem; letter-spacing: .28em;
+      font-size: .62rem; letter-spacing: .28em;
       text-transform: uppercase; text-decoration: none;
       padding: .9rem 1.75rem;
       transition: background .2s, color .2s;
@@ -237,17 +116,21 @@
       position: relative; z-index: 2;
       display: flex; flex-direction: column;
       align-items: center; gap: 3rem;
+      /* cap to the column so the label cards shrink instead of being clipped on 900–1200px screens */
+      max-width: calc(100% - 3rem);
     }
     .logo-pair {
       display: flex; gap: 3px;
       background: var(--ink);
       border: 2px solid var(--ink);
+      max-width: 100%;
     }
     .logo-cell {
       background: var(--paper-warm);
       display: flex; flex-direction: column;
       align-items: center;
       width: 280px;
+      flex: 0 1 280px; min-width: 0;
     }
     .logo-cell-img {
       padding: 2.5rem 2rem 1.5rem;
@@ -275,7 +158,7 @@
       color: var(--ink); letter-spacing: .04em;
     }
     .logo-cell-sub {
-      font-size: .45rem; letter-spacing: .25em;
+      font-size: .58rem; letter-spacing: .14em;
       text-transform: uppercase; color: var(--muted);
       margin-top: .15rem;
     }
@@ -286,7 +169,7 @@
     }
     .logo-cell-footer:hover .logo-cell-arrow { color: var(--ink); transform: translateX(3px); }
     .hero-stamp {
-      font-size: .48rem; letter-spacing: .3em;
+      font-size: .6rem; letter-spacing: .3em;
       text-transform: uppercase; color: var(--muted);
       text-align: center;
     }
@@ -318,7 +201,7 @@
       animation: marquee 22s linear infinite;
     }
     .marquee-item {
-      font-size: .52rem; letter-spacing: .3em;
+      font-size: .62rem; letter-spacing: .3em;
       text-transform: uppercase;
       color: rgba(247,243,236,.5);
       flex-shrink: 0;
@@ -352,23 +235,6 @@
       color: rgba(15,13,11,.035);
       pointer-events: none; line-height: 1;
     }
-    .section-eyebrow {
-      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-mid); font-weight: 700;
-      margin-bottom: 1rem;
-      display: flex; align-items: center; gap: .75rem;
-    }
-    .section-eyebrow::after {
-      content: ""; flex: 1; height: 1px;
-      background: var(--rule-lt);
-    }
-    .section-title {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(1.8rem, 3.5vw, 3rem);
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 2rem;
-      line-height: 1.1;
-    }
     .about-text p {
       font-size: .8rem; line-height: 2.2;
       color: rgba(15,13,11,.82); max-width: 52ch;
@@ -378,7 +244,7 @@
       display: inline-flex; gap: .5rem; align-items: center;
       border: 1.5px solid var(--ink);
       padding: .45rem 1rem;
-      font-size: .55rem; letter-spacing: .25em;
+      font-size: .62rem; letter-spacing: .25em;
       text-transform: uppercase; color: var(--ink); margin-top: 2rem;
     }
 
@@ -403,8 +269,8 @@
     }
     .stat-num span { font-size: 1.4rem; }
     .stat-label {
-      font-size: .52rem; letter-spacing: .25em;
-      text-transform: uppercase; color: var(--ink-mid); line-height: 1.6; font-size: .6rem;
+      font-size: .6rem; letter-spacing: .25em;
+      text-transform: uppercase; color: var(--ink-mid); line-height: 1.6;
     }
 
     /* ══════════════════════════════════
@@ -457,7 +323,8 @@
     }
     .product-card:hover .product-bag img { transform: scale(1.04); }
     .product-info {
-      padding: 3rem 2.5rem 3rem 3rem;
+      /* extra bottom room so the "View details →" label never overlaps the roast pips */
+      padding: 3rem 2.5rem 5rem 3rem;
       position: relative;
     }
     .product-info::after {
@@ -502,7 +369,7 @@
       font-size: 1.6rem; font-weight: 700; color: var(--ink);
     }
     .product-tag {
-      font-size: .48rem; letter-spacing: .25em;
+      font-size: .6rem; letter-spacing: .25em;
       text-transform: uppercase; color: var(--muted);
       border: 1px solid rgba(15,13,11,.2);
       padding: .3rem .75rem;
@@ -516,7 +383,7 @@
     }
     .pip.filled { background: var(--ink); }
     .roast-label {
-      font-size: .48rem; letter-spacing: .25em;
+      font-size: .6rem; letter-spacing: .25em;
       text-transform: uppercase; color: var(--muted);
       margin-left: .5rem;
     }
@@ -556,7 +423,8 @@
     .value-cell:last-child { border-right: none; }
     .value-cell:hover { background: rgba(247,243,236,.04); }
     .value-icon {
-      font-size: 1.4rem; margin-bottom: 1.2rem; display: block;
+      width: 2rem; height: 2rem; margin-bottom: 1.2rem; display: block;
+      color: var(--paper);
     }
     .value-name {
       font-family: "Playfair Display", serif;
@@ -589,7 +457,7 @@
     }
     .method-card:last-child { border-right: none; }
     .method-card:hover { background: var(--paper-warm); }
-    .method-icon { font-size: 1.5rem; margin-bottom: 1.2rem; display: block; }
+    .method-icon { width: 2rem; height: 2rem; margin-bottom: 1.2rem; display: block; color: var(--ink); }
     .method-name {
       font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-mid); margin-bottom: .5rem; font-weight: 700;
     }
@@ -648,6 +516,7 @@
     }
     .contact-link-val {
       font-size: .72rem; color: var(--ink); letter-spacing: .04em;
+      overflow-wrap: anywhere;
     }
     .contact-link-arrow {
       margin-left: auto;
@@ -658,89 +527,23 @@
     .contact-link-row:hover .contact-link-arrow { color: var(--ink); transform: translateX(4px); }
 
     /* ══════════════════════════════════
-       FOOTER
-    ══════════════════════════════════ */
-    footer {
-      background: var(--ink);
-      padding: 3rem 4.5rem;
-    }
-    .footer-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid rgba(247,243,236,.1);
-      margin-bottom: 2rem;
-    }
-    .footer-brand {
-      font-family: "Playfair Display", serif;
-      font-size: 1.05rem;
-      letter-spacing: .08em;
-      color: var(--paper);
-    }
-    .footer-sub {
-      font-size: .5rem; letter-spacing: .3em;
-      text-transform: uppercase;
-      color: rgba(247,243,236,.75); margin-top: .35rem;
-    }
-    .footer-links {
-      display: flex; gap: 2rem; align-items: center;
-    }
-    .footer-link {
-      font-size: .72rem; letter-spacing: .08em;
-      color: rgba(247,243,236,.85);
-      text-decoration: none;
-      display: flex; align-items: center; gap: .4rem;
-      transition: color .2s;
-      text-transform: uppercase;
-    }
-    .footer-link:hover { color: var(--paper); }
-    .footer-link svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .footer-legal {
-      font-size: .5rem; letter-spacing: .08em;
-      color: rgba(247,243,236,.7); line-height: 1.9; font-size: .62rem;
-    }
-    .co2-badge {
-      font-size: .5rem; letter-spacing: .2em;
-      text-transform: uppercase;
-      color: rgba(247,243,236,.8);
-      border: 1px solid rgba(247,243,236,.4);
-      padding: .3rem .75rem;
-    }
-
-    /* ══════════════════════════════════
        RESPONSIVE
     ══════════════════════════════════ */
     @media (max-width: 900px) {
-      /* nav */
-      nav { padding: 0 1.25rem; }
-      .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
-      /* show the drawer container on mobile */
-      .nav-drawer { display: flex; }
-      /* when open, slide into view */
-      .nav-drawer.open { transform: translateY(0); }
-
       /* hero */
-      .hero { grid-template-columns: 1fr; min-height: auto; }
-      .jp-strip { display: none; }
+      .hero { min-height: auto; }
       .hero-left { padding: 3rem 1.25rem 3rem 1.25rem; border-right: none; border-bottom: 2px solid var(--ink); }
       .hero-right { height: auto; min-height: 0; width: 100%; }
       .hero-bg-text { font-size: 8rem; }
 
       /* logo pair */
-      .logo-pair { flex-direction: column; width: 100%; }
-      .logo-cell { width: 100%; }
+      .logo-pair { flex-direction: column; width: 100%; max-width: none; }
+      .logo-cell { width: 100%; flex-basis: auto; }
       .logo-cell-img { height: 220px; }
-      .hero-logo-wrap { padding: 2rem 0 2.5rem; width: 100%; align-items: stretch; gap: 1.5rem; }
+      .hero-logo-wrap { padding: 2rem 0 2.5rem; width: 100%; max-width: none; align-items: stretch; gap: 1.5rem; }
       .logo-cell-footer { padding: 1rem 1.25rem; }
       .logo-cell-name { font-size: .8rem; }
-      .logo-cell-sub { font-size: .42rem; }
+      .logo-cell-sub { font-size: .55rem; }
 
       /* about */
       .about-section { grid-template-columns: 1fr; gap: 3rem; padding: 3.5rem 1.25rem; }
@@ -769,33 +572,10 @@
       .method-card:last-child { border-bottom: none; }
 
       /* contact */
-      .contact-section { grid-template-columns: 1fr; gap: 2.5rem; padding: 3.5rem 1.25rem; }
+      .contact-link-row { padding: 1.5rem 1.25rem; gap: 1rem; }
+      .contact-section { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; padding: 3.5rem 1.25rem; }
       .contact-section::before { font-size: 9rem; }
-
-      /* footer */
-      footer { padding: 2.5rem 1.25rem; }
-      .footer-top { flex-direction: column; gap: 1.5rem; text-align: center; }
-      .footer-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
-      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
-
-      /* section headings */
-      .section-title { font-size: clamp(1.5rem, 6vw, 2rem); margin-bottom: 2rem; }
     }
-
-    /* ══════════════════════════════════
-       ANIMATIONS
-    ══════════════════════════════════ */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .hero-left > * { animation: fadeUp .7s ease both; }
-    .hero-left > *:nth-child(1) { animation-delay: .05s; }
-    .hero-left > *:nth-child(2) { animation-delay: .15s; }
-    .hero-left > *:nth-child(3) { animation-delay: .25s; }
-    .hero-left > *:nth-child(4) { animation-delay: .38s; }
-    .hero-left > *:nth-child(5) { animation-delay: .5s; }
-    .hero-left > *:nth-child(6) { animation-delay: .62s; }
   </style>
 </head>
 <body>
@@ -812,7 +592,7 @@
       Contact
     </a>
   </div>
-  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -851,7 +631,7 @@
           <div class="logo-cell-img">
             <img src="label_lightroast.png" alt="Nine Lives Roast — Polar Blend label" />
           </div>
-          <a href="#products" class="logo-cell-footer">
+          <a href="nlr-polar-blend.html" class="logo-cell-footer">
             <div>
               <div class="logo-cell-name">Polar Blend</div>
               <div class="logo-cell-sub">Light Roast · BR · PE · CO</div>
@@ -863,7 +643,7 @@
           <div class="logo-cell-img">
             <img src="label_peru.png" alt="Nine Lives Roast — Peru label" />
           </div>
-          <a href="#products" class="logo-cell-footer">
+          <a href="nlr-peru-passport.html" class="logo-cell-footer">
             <div>
               <div class="logo-cell-name">Peru</div>
               <div class="logo-cell-sub">Medium Roast · Single Origin</div>
@@ -873,7 +653,7 @@
         </div>
       </div>
       <div class="hero-stamp">Amsterdam, NL · Est. 2025</div>
-      <a href="#contact" class="btn-primary" style="font-size:.55rem; letter-spacing:.28em; padding:.9rem 2.5rem; margin-top:.5rem;">Order now</a>
+      <a href="#contact" class="btn-primary" style="padding:.9rem 2.5rem; margin-top:.5rem;">Order now</a>
     </div>
   </div>
 </section>
@@ -930,7 +710,7 @@
     <p>We partner with a local Amsterdam roaster to source beans ethically from Peru, Colombia, and Brazil, and roast them through CO₂-neutral processes. The result is delicious, sustainable coffee that doesn't ask you to compromise on either.</p>
     <p>Running as a solo eenmanszaak keeps things small and personal: every bag that reaches you has been thought about, not just processed.</p>
     <p style="font-size:.72rem; line-height:2.0; color:rgba(15,13,11,.5);">All illustrations by <a href="https://www.instagram.com/lucare.ink/" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:underline; text-underline-offset:3px;">@lucare.ink</a>.</p>
-    <div class="about-badge">🌿 Organic &nbsp;·&nbsp; ☯ Fair Trade &nbsp;·&nbsp; 🌍 CO₂-Neutral</div>
+    <div class="about-badge"><svg class="badge-icon" aria-hidden="true"><use href="icons.svg#leaf"/></svg> Organic &nbsp;·&nbsp; <svg class="badge-icon" aria-hidden="true"><use href="icons.svg#scale"/></svg> Fair Trade &nbsp;·&nbsp; <svg class="badge-icon" aria-hidden="true"><use href="icons.svg#globe"/></svg> CO₂-Neutral</div>
   </div>
 
   <div class="about-stats">
@@ -948,7 +728,7 @@
     </div>
     <div class="stat-cell">
       <div class="stat-num">€10<span></span></div>
-      <div class="stat-label">Per bag<br>Both blends</div>
+      <div class="stat-label">Per bag<br>Both coffees</div>
     </div>
   </div>
 </section>
@@ -956,10 +736,10 @@
 <!-- ═══ PRODUCTS ══════════════════════════════════════════ -->
 <section class="products-section" id="products">
   <div class="section-eyebrow">Our Coffees</div>
-  <h2 class="section-title">Two blends, one roaster, no compromises</h2>
+  <h2 class="section-title">Two coffees, one roaster, no compromises</h2>
   <p style="font-size:.78rem; line-height:2.0; color:rgba(15,13,11,.6); max-width:58ch;">Both available in 250g bags of whole beans. Both versatile enough for espresso, filter or moka. Both €10. To order, <a href="mailto:info@ninelivesroast.nl" style="color:var(--ink); text-decoration:underline; text-underline-offset:3px;">send us an email</a> or <a href="https://www.instagram.com/ninelivesroast" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:underline; text-underline-offset:3px;">DM on Instagram</a>.</p>
 
-  <div style="font-size:.48rem; letter-spacing:.28em; text-transform:uppercase; color:var(--muted); margin-top:1.25rem;">
+  <div style="font-size:.6rem; letter-spacing:.28em; text-transform:uppercase; color:var(--muted); margin-top:1.25rem;">
     → Click on a coffee to see the full origin story, tasting notes &amp; price breakdown
   </div>
 
@@ -968,7 +748,7 @@
     <a href="nlr-peru-passport.html" class="product-card">
       <div class="product-card-inner">
         <div class="product-bag">
-          <img src="peru_bag.jpeg" alt="Peru Single Origin bag" />
+          <img src="peru_bag.jpeg" alt="Peru Single Origin bag" loading="lazy" />
         </div>
         <div class="product-info">
           <div class="product-label">Single Origin · Peru</div>
@@ -999,7 +779,7 @@
     <a href="nlr-polar-blend.html" class="product-card">
       <div class="product-card-inner">
         <div class="product-bag">
-          <img src="polar_bag.jpeg" alt="Polar Blend bag" />
+          <img src="polar_bag.jpeg" alt="Polar Blend bag" loading="lazy" />
         </div>
         <div class="product-info">
           <div class="product-label">Blend · Brazil · Peru · Colombia</div>
@@ -1036,17 +816,17 @@
   <h2 class="section-title">Good coffee doesn't cost the earth</h2>
   <div class="values-grid">
     <div class="value-cell">
-      <span class="value-icon">🌍</span>
+      <svg class="value-icon" aria-hidden="true"><use href="icons.svg#globe"/></svg>
       <div class="value-name">CO₂-Neutral</div>
       <div class="value-desc">We roast through CO₂-neutral processes and work with partners who take the same approach seriously. It's part of how we do things, not a badge we wear.</div>
     </div>
     <div class="value-cell">
-      <span class="value-icon">🤝</span>
+      <svg class="value-icon" aria-hidden="true"><use href="icons.svg#handshake"/></svg>
       <div class="value-name">Transparent Sourcing</div>
-      <div class="value-desc">We publish exactly where your money goes and farmers get the majority. Our importer, This Side Up Coffees, and our roaster, Specialty Roast, work directly with producers to keep the chain short and honest.</div>
+      <div class="value-desc">We publish exactly where your money goes and farmers get the majority. Our importer, This Side Up Coffees, and our roaster, Special Roast, work directly with producers to keep the chain short and honest.</div>
     </div>
     <div class="value-cell">
-      <span class="value-icon">🐱</span>
+      <svg class="value-icon" aria-hidden="true"><use href="icons.svg#cat"/></svg>
       <div class="value-name">Made with Care</div>
       <div class="value-desc">This is a one-person operation. Every decision, from bean selection to the logo, is personal. That's not a limitation, it's the whole point.</div>
     </div>
@@ -1059,17 +839,17 @@
   <h2 class="section-title">Works with whatever you brew on</h2>
   <div class="methods-grid">
     <div class="method-card">
-      <span class="method-icon">☕</span>
+      <svg class="method-icon" aria-hidden="true"><use href="icons.svg#espresso"/></svg>
       <div class="method-name">Espresso</div>
-      <div class="method-desc">Concentrated, intense, pulls beautifully on both blends</div>
+      <div class="method-desc">Concentrated, intense, pulls beautifully on both coffees</div>
     </div>
     <div class="method-card">
-      <span class="method-icon">🫖</span>
+      <svg class="method-icon" aria-hidden="true"><use href="icons.svg#pourover"/></svg>
       <div class="method-name">Filter / Pour-over</div>
       <div class="method-desc">Lets the nuances shine, especially the Polar Blend's fruit notes</div>
     </div>
     <div class="method-card">
-      <span class="method-icon">🫕</span>
+      <svg class="method-icon" aria-hidden="true"><use href="icons.svg#moka"/></svg>
       <div class="method-name">Moka Pot</div>
       <div class="method-desc">Rich and full, the Peru single origin is made for this</div>
     </div>
@@ -1150,30 +930,6 @@
   </div>
 </footer>
 
-<script>
-  const btn = document.getElementById('hamburger');
-  const drawer = document.getElementById('navDrawer');
-
-  btn.addEventListener('click', () => {
-    btn.classList.toggle('open');
-    drawer.classList.toggle('open');
-  });
-
-  // close on any drawer link tap
-  drawer.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      btn.classList.remove('open');
-      drawer.classList.remove('open');
-    });
-  });
-
-  // close on outside tap
-  document.addEventListener('click', (e) => {
-    if (!btn.contains(e.target) && !drawer.contains(e.target)) {
-      btn.classList.remove('open');
-      drawer.classList.remove('open');
-    }
-  });
-</script>
+<script src="site.js"></script>
 </body>
 </html>
